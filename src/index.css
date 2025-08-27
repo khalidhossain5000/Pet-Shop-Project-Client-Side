@@ -1,2 +1,16 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+
+@theme {
+    /* --font-display: "Satoshi", "sans-serif";
+    --breakpoint-3xl: 120rem; */
+    --font-primary: "ADLaM Display", "system-ui";
+    --font-secondary: "Sora", "sans-serif";
+  
+    --color-light-primary: #FFFFFF;
+    --color-light-secondary: #FFF9F4;
+    --color-light-accent: #FFDC26;
+    --color-light-text: #111111;
+ 
+  }
