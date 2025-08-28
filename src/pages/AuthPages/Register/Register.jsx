@@ -3,12 +3,13 @@ import useAuth from "../../../../Hooks/useAuth";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router";
+import SocialLogin from "../SocialLogin/SocialLogin";
 const Register = () => {
   const [profilePic, setProfilePic] = useState("");
-//   const [passwordError, setPasswordError] = useState("");
+  //   const [passwordError, setPasswordError] = useState("");
   const [previewUrl, setPreviewUrl] = useState(null);
 
-//   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+  //   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
   const { createUser, updateUserProfile, setUser } = useAuth();
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ const Register = () => {
     });
     console.log(name, profilePic);
   };
-  console.log("profielp ic", profilePic);
+  
   const handleImageUpload = async (e) => {
     const image = e.target.files[0];
     if (image) {
@@ -177,16 +178,16 @@ const Register = () => {
             <input
               type="password"
               name="password"
-            //   onInput={(e) => {
-            //     const value = e.target.value || "";
-            //     if (!passwordPattern.test(value)) {
-            //       setPasswordError(
-            //         "Password must be 6+ chars with upper and lower case."
-            //       );
-            //     } else {
-            //       setPasswordError("");
-            //     }
-            //   }}
+              //   onInput={(e) => {
+              //     const value = e.target.value || "";
+              //     if (!passwordPattern.test(value)) {
+              //       setPasswordError(
+              //         "Password must be 6+ chars with upper and lower case."
+              //       );
+              //     } else {
+              //       setPasswordError("");
+              //     }
+              //   }}
               required
               placeholder="Create a password"
               className="w-full px-3 py-2 rounded-lg border outline-none focus:ring-2"
@@ -196,6 +197,7 @@ const Register = () => {
               }}
             />
           </label>
+          
 
           <button
             type="submit"
@@ -207,6 +209,12 @@ const Register = () => {
           >
             Register
           </button>
+          <div className="flex items-center my-4">
+            <div className="flex-grow h-px bg-gray-300"></div>
+            <span className="mx-3 text-gray-500 font-semibold">Or</span>
+            <div className="flex-grow h-px bg-gray-300"></div>
+          </div>
+          <SocialLogin />
         </div>
       </form>
     </div>

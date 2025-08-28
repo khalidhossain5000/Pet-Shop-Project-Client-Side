@@ -1,5 +1,6 @@
 import React from "react";
 import useAuth from "../../../../Hooks/useAuth";
+import SocialLogin from "../SocialLogin/SocialLogin";
 import { toast } from "react-hot-toast";
 
 const Login = () => {
@@ -90,6 +91,12 @@ const Login = () => {
           >
             Login
           </button>
+          <div className="flex items-center my-4">
+            <div className="flex-grow h-px bg-gray-300"></div>
+            <span className="mx-3 text-gray-500 font-semibold">Or</span>
+            <div className="flex-grow h-px bg-gray-300"></div>
+          </div>
+          <SocialLogin />
         </div>
       </form>
     </div>

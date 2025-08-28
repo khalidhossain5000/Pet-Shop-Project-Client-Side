@@ -37,7 +37,7 @@ const NavBar = () => {
   return (
     <div className="bg-light-secondary z-[999] relative">
       {/* top menu start  */}
-      <nav className="md:container mx-auto flex items-center justify-between py-5 md:px-0 px-4 border-b-2 border-black md:border-b-0 mb-24">
+      <nav className="md:container mx-auto flex items-center justify-between py-5 md:px-0 px-4 border-b-1 border-black/30 md:border-b-0 mb-24">
         {/* logo  */}
         <div className="flex items-center gap-3">
           <img className="block" src={logo} alt="" />
@@ -148,11 +148,44 @@ const NavBar = () => {
                     {links}
                   </ul>
                 </div>
-                <div className=""></div>
+                <div className="">
+          {
+            user ? <div className="space-x-4 md:hidden flex  items-center">
+              <img src={user?.photoURL} alt="" className="w-10 lg:w-14 lg:h-14 h-10 rounded-full" />
+              <button  onClick={handleLogout} className="border-none bg-light-accent py-[10px] px-[30px] rounded-lg text-light-text font-secondary text-xl ml-3 cursor-pointer">Logout</button>
+            </div> : <div className="space-x-4 md:hidden flex ">
+            {/* button  */}
+            <Link to="/auth/login" className="cursor-pointer">
+              <button className="border font-secondary  border-light-accent py-[10px] px-[30px] rounded-lg text-xl cursor-pointer">
+                Login
+              </button>
+            </Link>
+  
+            <Link to="/auth/register" className="cursor-pointer">
+              <button className="border-none bg-light-accent py-[10px] px-[30px] rounded-lg text-light-text font-secondary text-xl ml-3 cursor-pointer">
+                Register
+              </button>
+            </Link>
+          </div>
+          }
+        </div>
               </div>
             </div>
           </div>
         </span>
+
+
+
+
+
+
+
+
+
+
+
+
+
       </nav>
     </div>
   );
