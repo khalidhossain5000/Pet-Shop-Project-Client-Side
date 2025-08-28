@@ -1,17 +1,28 @@
 import React from "react";
 import logo from "../../assets/logo/logo-header.png";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { Link } from "react-router";
+import useAuth from "../../../Hooks/useAuth";
 const NavBar = () => {
+  const {createUser}=useAuth()
+  console.log(createUser)
+
+
+
+
   const links = (
     <>
       <li>
-        <a href="">Product</a>
+        <Link href="/">Home</Link>
       </li>
       <li>
-        <a href="">Services</a>
+        <Link href="">Find a pet</Link>
       </li>
       <li>
-        <a href="">Contact Us</a>
+        <Link href="">Breeds</Link>
+      </li>
+      <li>
+        <Link href="">Contact Us</Link>
       </li>
     </>
   );
@@ -39,9 +50,11 @@ const NavBar = () => {
           <button className="border font-secondary  border-light-accent py-[10px] px-[30px] rounded-lg text-xl">
             Login
           </button>
+
           <button className="border-none bg-light-accent py-[10px] px-[30px] rounded-lg text-light-text font-secondary text-xl ml-3">
             Register
           </button>
+          
         </div>
         {/* mobile menu */}
         <span className="md:hidden">
