@@ -1,169 +1,132 @@
 import React, { useState } from "react";
-
+import useAuth from "../../../../Hooks/useAuth";
+import axios from "axios";
 const Register = () => {
-  const [photoFile, setPhotoFile] = useState(null);
-  const [photoPreviewUrl, setPhotoPreviewUrl] = useState("");
-  const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
+  const [profilePic, setProfilePic] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [previewUrl, setPreviewUrl] = useState(null);
+  
+  const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
-  const handlePhotoChange = (e) => {
-    const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
-    setPhotoFile(file);
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setPhotoPreviewUrl(url);
-    } else {
-      setPhotoPreviewUrl("");
-    }
-  };
+  const {createUser}=useAuth()
 
   const handleRegister = (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const pwd = formData.get("password") || "";
-    if (!passwordPattern.test(pwd)) {
-      setPasswordError("Password must be 6+ chars with upper and lower case.");
-      return;
-    } else {
-      setPasswordError("");
-    }
-    if (photoFile) {
-      formData.set("photo", photoFile);
-    }
-    // Submit formData to your registration logic here
-    // Example: await fetch('/api/register', { method: 'POST', body: formData })
-    alert("Registration form submitted");
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    
+    createUser(email,password)
+    .then((result)=>{
+        alert("User created successfully")
+        console.log(result.user)
+    })
+    console.log(name,profilePic)
   };
+  console.log("profielp ic",profilePic);
+  const handleImageUpload = async (e) => {
+    const image = e.target.files[0];
+    if (image) {
+      setPreviewUrl(URL.createObjectURL(image)); 
+    }
+    const formData = new FormData();
+    formData.append("image", image);
 
+    const imagUploadUrl = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_Imgbb_Key
+    }`;
+    const res = await axios.post(imagUploadUrl, formData);
+
+    setProfilePic(res.data.data.url);
+  };
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        padding: "40px 16px",
-      }}
-    >
+    <div className="flex justify-center px-4 py-10">
       <form
         onSubmit={handleRegister}
+        className="bg-light-primary w-full max-w-md rounded-xl shadow-lg border p-6 font-secondary"
         style={{
-          width: "100%",
-          maxWidth: 520,
-          background: "var(--color-light-primary)",
-          border: "1px solid rgba(0,0,0,0.06)",
-          borderRadius: 12,
-          boxShadow: "0 6px 24px rgba(0,0,0,0.06)",
-          padding: 24,
-          fontFamily: "var(--font-secondary)",
+          borderColor: "rgba(0,0,0,0.06)",
         }}
       >
-        <h2
-          style={{
-            margin: "0 0 16px 0",
-            fontFamily: "var(--font-primary)",
-            color: "var(--color-light-text)",
-          }}
-        >
+        <h2 className="mb-4 text-2xl font-semibold font-primary text-light-text lg:font-bold">
           Create your account
         </h2>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <label style={{ color: "var(--color-light-text)" }}>
-            <span style={{ display: "inline-block", marginBottom: 6 }}>
-              User Name
-            </span>
+        <div className="flex flex-col gap-3">
+          <label className="text-sm text-light-text">
+            <span className="mb-1 inline-block">User Name</span>
             <input
               type="text"
               name="name"
               required
               placeholder="Your full name"
+              className="w-full px-3 py-2 rounded-lg border outline-none focus:ring-2 bg-light-secondary"
               style={{
-                width: "100%",
-                padding: "10px 12px",
-                borderRadius: 8,
-                border: "1px solid rgba(0,0,0,0.12)",
-                outline: "none",
-                background: "var(--color-light-secondary)",
+                borderColor: "rgba(0,0,0,0.12)",
               }}
             />
           </label>
 
           <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-              color: "var(--color-light-text)",
-            }}
+            className="flex flex-col gap-2"
+            style={{ color: "var(--color-light-text)" }}
           >
-            <label>
-              <span style={{ display: "inline-block", marginBottom: 6 }}>
-                User Photo
-              </span>
+            <label className="text-sm">
+              <span className="mb-1 inline-block">User Photo</span>
               <input
                 type="file"
                 name="photo"
                 accept="image/*"
-                onChange={handlePhotoChange}
-                style={{ width: "100%", padding: "8px 0" }}
+                onChange={handleImageUpload}
+                className="w-full py-2"
               />
             </label>
-            {photoPreviewUrl ? (
+            {previewUrl ? (
               <div
+                className="w-full rounded-lg border p-2 flex items-center gap-3"
                 style={{
-                  width: "100%",
                   background: "var(--color-light-secondary)",
-                  border: "1px solid rgba(0,0,0,0.12)",
-                  borderRadius: 8,
-                  padding: 8,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 12,
+                  borderColor: "rgba(0,0,0,0.12)",
                 }}
               >
                 <img
-                  src={photoPreviewUrl}
+                  src={previewUrl}
                   alt="Selected preview"
-                  style={{
-                    width: 64,
-                    height: 64,
-                    objectFit: "cover",
-                    borderRadius: 8,
-                  }}
+                  className="w-16 h-16 object-cover rounded-lg"
                 />
-                <span style={{ fontSize: 12, opacity: 0.8 }}>
+                <span className="text-xs opacity-80">
                   Preview of your selected image
                 </span>
               </div>
             ) : null}
           </div>
 
-          <label style={{ color: "var(--color-light-text)" }}>
-            <span style={{ display: "inline-block", marginBottom: 6 }}>
-              Email
-            </span>
+          <label
+            className="text-sm"
+            style={{ color: "var(--color-light-text)" }}
+          >
+            <span className="mb-1 inline-block">Email</span>
             <input
               type="email"
               name="email"
               required
               placeholder="you@example.com"
+              className="w-full px-3 py-2 rounded-lg border outline-none focus:ring-2"
               style={{
-                width: "100%",
-                padding: "10px 12px",
-                borderRadius: 8,
-                border: "1px solid rgba(0,0,0,0.12)",
-                outline: "none",
                 background: "var(--color-light-secondary)",
+                borderColor: "rgba(0,0,0,0.12)",
               }}
             />
           </label>
 
           {passwordError ? (
             <div
+              className="rounded-lg"
               style={{
                 color: "#c0392b",
                 background: "rgba(192,57,43,0.08)",
                 border: "1px solid rgba(192,57,43,0.25)",
-                borderRadius: 8,
                 padding: "8px 10px",
                 marginTop: 4,
                 marginBottom: 4,
@@ -174,10 +137,11 @@ const Register = () => {
             </div>
           ) : null}
 
-          <label style={{ color: "var(--color-light-text)" }}>
-            <span style={{ display: "inline-block", marginBottom: 6 }}>
-              Password
-            </span>
+          <label
+            className="text-sm"
+            style={{ color: "var(--color-light-text)" }}
+          >
+            <span className="mb-1 inline-block">Password</span>
             <input
               type="password"
               name="password"
@@ -193,28 +157,20 @@ const Register = () => {
               }}
               required
               placeholder="Create a password"
+              className="w-full px-3 py-2 rounded-lg border outline-none focus:ring-2"
               style={{
-                width: "100%",
-                padding: "10px 12px",
-                borderRadius: 8,
-                border: "1px solid rgba(0,0,0,0.12)",
-                outline: "none",
                 background: "var(--color-light-secondary)",
+                borderColor: "rgba(0,0,0,0.12)",
               }}
             />
           </label>
 
           <button
             type="submit"
+            className="mt-2 px-4 py-3 rounded-lg font-bold hover:opacity-90 cursor-pointer"
             style={{
-              marginTop: 8,
-              padding: "12px 16px",
-              borderRadius: 10,
-              border: "none",
-              cursor: "pointer",
               background: "var(--color-light-accent)",
               color: "var(--color-light-text)",
-              fontWeight: 700,
             }}
           >
             Register
