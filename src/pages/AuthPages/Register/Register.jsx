@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import useAuth from "../../../../Hooks/useAuth";
 import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router";
 const Register = () => {
   const [profilePic, setProfilePic] = useState("");
-  const [passwordError, setPasswordError] = useState("");
+//   const [passwordError, setPasswordError] = useState("");
   const [previewUrl, setPreviewUrl] = useState(null);
-  
-  const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
 
-  const {createUser}=useAuth()
+//   const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+
+  const { createUser, updateUserProfile, setUser } = useAuth();
+  const navigate = useNavigate();
+  const from = location.state?.from || "/";
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -16,19 +20,47 @@ const Register = () => {
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-    
-    createUser(email,password)
-    .then((result)=>{
-        alert("User created successfully")
-        console.log(result.user)
-    })
-    console.log(name,profilePic)
+
+    createUser(email, password).then((result) => {
+      const user = result.user;
+      // update user profile in firebase
+      const userProfile = {
+        displayName: name,
+        photoURL: profilePic,
+      };
+
+      updateUserProfile(userProfile)
+        .then(() => {
+          setUser({ ...user, displayName: name, photoURL: profilePic });
+          toast.success(`User Registered SuccessFully`, {
+            className: "w-[300px] h-[100px] text-xl font-bold ",
+            removeDelay: 1000,
+            iconTheme: {
+              primary: "#16061e",
+              secondary: "#ef54e2",
+            },
+            style: {
+              border: "1px solid #08086c",
+              color: "white",
+              backgroundImage:
+                "linear-gradient(to bottom right, #050342,#01c3f4 )",
+            },
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      navigate(from);
+      console.log(result.user);
+    });
+    console.log(name, profilePic);
   };
-  console.log("profielp ic",profilePic);
+  console.log("profielp ic", profilePic);
   const handleImageUpload = async (e) => {
     const image = e.target.files[0];
     if (image) {
-      setPreviewUrl(URL.createObjectURL(image)); 
+      setPreviewUrl(URL.createObjectURL(image));
     }
     const formData = new FormData();
     formData.append("image", image);
@@ -120,7 +152,7 @@ const Register = () => {
             />
           </label>
 
-          {passwordError ? (
+          {/* {passwordError ? (
             <div
               className="rounded-lg"
               style={{
@@ -135,7 +167,7 @@ const Register = () => {
             >
               {passwordError}
             </div>
-          ) : null}
+          ) : null} */}
 
           <label
             className="text-sm"
@@ -145,16 +177,16 @@ const Register = () => {
             <input
               type="password"
               name="password"
-              onInput={(e) => {
-                const value = e.target.value || "";
-                if (!passwordPattern.test(value)) {
-                  setPasswordError(
-                    "Password must be 6+ chars with upper and lower case."
-                  );
-                } else {
-                  setPasswordError("");
-                }
-              }}
+            //   onInput={(e) => {
+            //     const value = e.target.value || "";
+            //     if (!passwordPattern.test(value)) {
+            //       setPasswordError(
+            //         "Password must be 6+ chars with upper and lower case."
+            //       );
+            //     } else {
+            //       setPasswordError("");
+            //     }
+            //   }}
               required
               placeholder="Create a password"
               className="w-full px-3 py-2 rounded-lg border outline-none focus:ring-2"
