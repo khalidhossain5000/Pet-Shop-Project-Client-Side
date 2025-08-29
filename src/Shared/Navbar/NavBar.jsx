@@ -4,9 +4,15 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
 import toast from "react-hot-toast";
+import useRole from "../../../Hooks/useRole";
 
 const NavBar = () => {
   const { user ,logoutUser} = useAuth();
+  const {role,isLoading}=useRole()
+
+
+  console.log('role',role,isLoading);
+
   const handleLogout=()=>{
     logoutUser()
     .then((result) => {
@@ -32,6 +38,11 @@ const NavBar = () => {
       <li>
         <Link to="">Contact Us</Link>
       </li>
+      {
+        role ==='admin' && <li>
+        <Link to="">DashBoard</Link>
+      </li>
+      }
     </>
   );
   return (

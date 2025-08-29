@@ -22,7 +22,7 @@ const useRole = () => {
       return response?.data?.role;
     }
   });
-console.log("role and loading",role,loading)
+
   return {
     role,
     isLoading: loading || isLoading,
