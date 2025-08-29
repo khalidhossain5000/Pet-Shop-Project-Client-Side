@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router";
 import SocialLogin from "../SocialLogin/SocialLogin";
+import useAxios from "../../../../Hooks/useAxios";
 const Register = () => {
   const [profilePic, setProfilePic] = useState("");
   //   const [passwordError, setPasswordError] = useState("");
@@ -14,6 +15,8 @@ const Register = () => {
   const { createUser, updateUserProfile, setUser } = useAuth();
   const navigate = useNavigate();
   const from = location.state?.from || "/";
+const axiosInstance=useAxios()
+
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -24,6 +27,15 @@ const Register = () => {
 
     createUser(email, password).then((result) => {
       const user = result.user;
+       // data sending to the db starts
+       const userInfo={
+        name,
+        email,
+        role:'user',
+        profilePic
+      }
+      axiosInstance.post('/users',userInfo)
+      // data sending to the db ends
       // update user profile in firebase
       const userProfile = {
         displayName: name,
@@ -33,6 +45,7 @@ const Register = () => {
       updateUserProfile(userProfile)
         .then(() => {
           setUser({ ...user, displayName: name, photoURL: profilePic });
+         
           toast.success(`User Registered SuccessFully`, {
             className: "w-[300px] h-[100px] text-xl font-bold ",
             removeDelay: 1000,
