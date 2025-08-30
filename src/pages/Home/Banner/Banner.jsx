@@ -6,7 +6,7 @@ const Banner = () => {
       <section className=" md:pt-0 md:relative md:container mx-auto md:flex items-center justify-between">
         {/* banner content-text  */}
         <div className="md:absolute z-10  md:top-32 w-full md:w-5/12 px-4 md:px-0">
-          <h1 className="text-center md:text-left mt-3 md:mt-0 text-light-text text-3xl lg:text-5xl xl:text-[56px] animate-bounce font-primary font-bold">
+          <h1 className="text-center md:text-left mt-3 md:mt-0 text-light-text text-3xl lg:text-5xl xl:text-[56px] animate-bounce font-primary ">
             Pamper Your Pet, Because They Deserve the Best
           </h1>
           <p className="text-center md:text-left text-xl font-secondary md:mt-4 md:mb-8 my-3">

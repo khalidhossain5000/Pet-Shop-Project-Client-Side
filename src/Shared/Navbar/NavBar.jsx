@@ -40,7 +40,7 @@ const NavBar = () => {
       </li>
       {
         role ==='admin' && <li>
-        <Link to="">DashBoard</Link>
+        <Link to="/dashboard">DashBoard</Link>
       </li>
       }
     </>
