@@ -26,26 +26,31 @@ const SideBar = ({ onClose }) => {
       path: "/dashboard",
     },
     {
-      text: "Users",
+      text: "All Users",
       icon: <FiUsers className="w-5 h-5" />,
-      path: "/admin/users",
+      path: "/dashboard/users",
     },
     {
-      text: "Products",
+      text: "Add Products",
       icon: <FiPackage className="w-5 h-5" />,
-      path: "/admin/products",
+      path: "/dashboard/add-products",
+    },
+     {
+      text: "All Products",
+      icon: <FiPackage className="w-5 h-5" />,
+      path: "/dashboard/all-products",
     },
     {
       text: "Orders",
       icon: <FiShoppingCart className="w-5 h-5" />,
-      path: "/admin/orders",
+      path: "/dashboard/orders",
     },
     {
       text: "Categories",
       icon: <FiGrid className="w-5 h-5" />,
-      path: "/admin/categories",
+      path: "/dashboard/categories",
     },
-    { text: "Pets", icon: <FiStar className="w-5 h-5" />, path: "/admin/pets" },
+    { text: "Pets", icon: <FiStar className="w-5 h-5" />, path: "/dashboard/pets" },
     {
       text: "Analytics",
       icon: <FiBarChart2 className="w-5 h-5" />,
@@ -102,7 +107,7 @@ const SideBar = ({ onClose }) => {
               key={item.text}
               onClick={() => handleNavigation(item.path)}
               className={`
-                w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200
+                w-full flex cursor-pointer items-center space-x-3 px-3 py-2.5 rounded-lg text-left transition-all duration-200
                 ${
                   isActive
                     ? "bg-blue-500 text-white shadow-md"

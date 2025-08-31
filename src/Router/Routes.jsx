@@ -7,6 +7,7 @@ import Login from "../pages/AuthPages/Login/Login";
 import CategoryDetails from "../pages/Home/Categories/CategoryDetails";
 import AdminDashboard from "../layouts/AdminLayout/AdminDashboard";
 import DashBoard from "../pages/AdminDashBoard/DashBoard";
+import AddProducts from "../pages/AdminDashBoard/AddProducts/AddProducts";
 
 
 export const router = createBrowserRouter([
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
       {
         index:true,
         Component:DashBoard
+      },
+      {
+        path:'add-products',
+        element:<AddProducts/>
       }
     ]
     

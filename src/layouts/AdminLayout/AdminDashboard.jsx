@@ -4,10 +4,9 @@ import { FiMenu, FiX } from "react-icons/fi";
 import SideBar from "../../pages/AdminDashBoard/SideBar/SideBar";
 import useAuth from "../../../Hooks/useAuth";
 
-
 const AdminDashboard = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-const {user}=useAuth()
+  const { user } = useAuth();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -36,7 +35,7 @@ const {user}=useAuth()
       {/* Main Content */}
       <div className="flex-1 flex flex-col lg:ml-0">
         {/* Header */}
-        <header className="bg-white shadow-sm border-b border-gray-200 px-4 py-6 ">
+        <header className="bg-white shadow-sm border-b border-gray-200 px-6 py-6 ">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <button
@@ -46,16 +45,22 @@ const {user}=useAuth()
               >
                 <FiMenu className="w-6 h-6 text-light-text" />
               </button>
-              <h1 className="text-xl font-semibold text-light-text">
+              <h1 className="text-xl font-bold text-light-text font-secondary">
                 Admin Dashboard
               </h1>
             </div>
             <div className="flex items-center space-x-4">
               <div className="hidden md:flex items-center space-x-2">
                 <div className="flex items-center justify-center">
-                  <img src={user?.photoURL} alt="Admin-photo" className="w-8 h-8 rounded-full "/>
+                  <img
+                    src={user?.photoURL}
+                    alt="Admin-photo"
+                    className="w-8 h-8 rounded-full "
+                  />
                 </div>
-                <span className="text-sm font-primary font-medium text-light-text">Admin</span>
+                <span className="text-sm font-primary font-medium text-light-text">
+                  Admin
+                </span>
               </div>
             </div>
           </div>
