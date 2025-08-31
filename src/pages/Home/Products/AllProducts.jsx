@@ -26,7 +26,7 @@ const AllProducts = () => {
         <div
           className="pt-6 md:flex md:gap-6
           "
-        >g
+        >
           {/* card-1 section container  */}
           <div className="mb-6 md:mb-0 md:w-1/3">
             {/* t-shirt for dog container  */}

@@ -11,7 +11,7 @@ const Categories = () => {
         {/* card-1  */}
 
         {data.map((cat) => (
-          <Link key={cat.id} to={`category/${cat.id}`}>
+          <Link key={cat.id} to={`category/${cat.name.toLocaleLowerCase()}`}>
             <div className="bg-[#F9DF8A] rounded-xl text-center pb-5 md:pt-6 lg:pb-9 ">
               <img
                 className="bg-white p-7 rounded-full mx-auto mt-8 mb-6"

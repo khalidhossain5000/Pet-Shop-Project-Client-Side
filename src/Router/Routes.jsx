@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
         Component: Home,
       },
       {
-        path: "category/:id",
+        path: "category/:categoryName",
         element: <CategoryDetails />,
       },
     ],
