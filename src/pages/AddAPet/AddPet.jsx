@@ -1,7 +1,13 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import Select from "react-select";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 const AddPet = () => {
+  const [previewUrl, setPreviewUrl] = useState();
+  const [petPic, setPetPic] = useState();
+  const axiosSecure = useAxiosSecure();
   const categoryOptions = [
     { value: "dog", label: "Dog" },
     { value: "cat", label: "Cat" },
@@ -11,15 +17,96 @@ const AddPet = () => {
     { value: "other", label: "Other" },
   ];
 
+  const handlePetSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+
+    const formDataObject = Object.fromEntries(formData);
+
+    const petData = {
+      ...formDataObject,
+      petPic,
+      status: "pending",
+    };
+    //data send to the db start
+
+    axiosSecure
+      .post("/add-pet", petData)
+      .then((res) => {
+        console.log(res);
+        // SweetAlert2 success message with theme colors
+        Swal.fire({
+          title: "Pet Submitted Successfully!",
+          text: "Your pet has been sent for admin approval. Once approved, it will be posted on the platform.",
+          icon: "success",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#3B82F6", // Blue accent color
+          background: "#F0F9FF", // Light blue background
+          color: "#1F2937", // Dark text color
+          customClass: {
+            popup: "rounded-xl border border-blue-200 shadow-lg",
+            title: "font-primary font-bold text-blue-800",
+            content: "font-secondary text-blue-700",
+            confirmButton:
+              "font-secondary font-semibold px-8 py-3 rounded-lg hover:bg-blue-700 transition-colors",
+          },
+        });
+        // Reset form
+        setPreviewUrl(null);
+        setPetPic(null);
+        e.target.reset();
+      })
+      .catch((error) => {
+        console.log(error);
+        // SweetAlert2 error message
+        Swal.fire({
+          title: "Error!",
+          text: "Failed to submit pet. Please try again.",
+          icon: "error",
+          confirmButtonText: "OK",
+          confirmButtonColor: "#ef4444",
+          background: "#FEF2F2", // Light red background
+          color: "#1F2937", // Dark text color
+          customClass: {
+            popup: "rounded-xl border border-red-200 shadow-lg",
+            title: "font-primary font-bold text-red-800",
+            content: "font-secondary text-red-700",
+            confirmButton:
+              "font-secondary font-semibold px-8 py-3 rounded-lg hover:bg-red-700 transition-colors",
+          },
+        });
+      });
+  };
+
+  const handlePetImage = async (e) => {
+    const image = e.target.files[0];
+    if (image) {
+      setPreviewUrl(URL.createObjectURL(image));
+    }
+    const formData = new FormData();
+    formData.append("image", image);
+
+    const imagUploadUrl = `https://api.imgbb.com/1/upload?key=${
+      import.meta.env.VITE_Imgbb_Key
+    }`;
+    const res = await axios.post(imagUploadUrl, formData);
+
+    setPetPic(res.data.data.url);
+  };
+  console.log(petPic);
   return (
     <div className="bg-light-secondary py-10">
       <div className="container mx-auto px-4">
-        <h1 className="text-2xl lg:text-3xl font-primary font-bold text-light-text mb-8">
+        <h1 className="text-2xl lg:text-3xl font-primary font-bold text-light-text mb-8 text-center">
           Add A Pet
         </h1>
 
         <div className="bg-white rounded-lg shadow-md p-6">
-          <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <form
+            onSubmit={handlePetSubmit}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6"
+          >
             {/* Pet Name */}
             <div>
               <label
@@ -208,13 +295,25 @@ const AddPet = () => {
               >
                 Pet Image
               </label>
-              <input
-                id="petImage"
-                name="petImage"
-                type="file"
-                accept="image/*"
-                className="w-full text-light-text file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-light-accent file:text-light-text hover:file:bg-light-accent/90 cursor-pointer"
-              />
+
+              {previewUrl ? (
+                <div className="mt-3 mb-4">
+                  <img
+                    src={previewUrl}
+                    alt="Product preview"
+                    className=" h-16 w-16 object-cover rounded-lg border"
+                  />
+                </div>
+              ) : (
+                <input
+                  onChange={handlePetImage}
+                  id="petImage"
+                  name="petImage"
+                  type="file"
+                  accept="image/*"
+                  className="w-full text-light-text file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-light-accent file:text-light-text hover:file:bg-light-accent/90 cursor-pointer"
+                />
+              )}
             </div>
 
             {/* Descriptions */}

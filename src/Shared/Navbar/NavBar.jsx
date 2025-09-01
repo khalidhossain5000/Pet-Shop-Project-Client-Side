@@ -51,7 +51,7 @@ const NavBar = () => {
   return (
     <div className="bg-light-secondary z-[999] relative">
       {/* top menu start  */}
-      <nav className="md:container mx-auto flex items-center justify-between py-5 md:px-0 px-4 border-b-1 border-black/30 md:border-b-0 pb-24">
+      <nav className="md:container mx-auto flex items-center justify-between py-5 md:px-0 px-4 border-b-1 border-black/30 md:border-b-0 ">
         {/* logo  */}
         <div className="flex items-center gap-3">
           <img className="block" src={logo} alt="sdgg" />
