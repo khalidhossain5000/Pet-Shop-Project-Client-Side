@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../../Hooks/useAxios";
 import dogImg from "../../../assets/image/cute-dog-mid.png";
 import { Link } from "react-router";
+import Loading from "../../../Shared/Loading/Loading";
 const AllProducts = () => {
   const axiosInstance = useAxios();
   // TanStack Query to fetch products
@@ -14,7 +15,7 @@ const AllProducts = () => {
     },
   });
 
-  console.log(products, isLoading);
+  if(isLoading) return <Loading/>
   return (
     <div className="bg-light-secondary py-12 lg:py-24">
       <div className="container mx-auto">

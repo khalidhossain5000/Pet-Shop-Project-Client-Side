@@ -5,13 +5,14 @@ import { Link } from "react-router";
 import useAuth from "../../../Hooks/useAuth";
 import toast from "react-hot-toast";
 import useRole from "../../../Hooks/useRole";
+import Loading from "../Loading/Loading";
 
 const NavBar = () => {
   const { user ,logoutUser} = useAuth();
   const {role,isLoading}=useRole()
 
 
-  console.log('role',role,isLoading);
+  if(isLoading) return <Loading/>
 
   const handleLogout=()=>{
     logoutUser()
@@ -30,13 +31,16 @@ const NavBar = () => {
         <Link to="/">Home</Link>
       </li>
       <li>
+        <Link to="/all-pets">All pets</Link>
+      </li>
+      <li>
         <Link to="">Find a pet</Link>
       </li>
       <li>
         <Link to="/add-a-pet">Add a pet</Link>
       </li>
       <li>
-        <Link to="">Breeds</Link>
+        <Link to="/breeds">Breeds</Link>
       </li>
       <li>
         <Link to="">Contact Us</Link>
@@ -51,11 +55,11 @@ const NavBar = () => {
   return (
     <div className="bg-light-secondary z-[999] relative">
       {/* top menu start  */}
-      <nav className="md:container mx-auto flex items-center justify-between py-5 md:px-0 px-4 border-b-1 border-black/30 md:border-b-0 ">
+      <nav className="md:container mx-auto flex items-center justify-between py-5 md:px-0 px-6 border-b-1 border-black/30 md:border-b-0 lg:px-2 xl:px-0">
         {/* logo  */}
         <div className="flex items-center gap-3">
-          <img className="block" src={logo} alt="sdgg" />
-          <h2 className="font-secondary text-light-text text-xl lg:text-[26px]">
+          <img className="block " src={logo} alt="sdgg" />
+          <h2 className="font-secondary text-light-text text-sm xl:text-[26px]">
             Browse<span className="text-light-accent"> 4 </span>Pets
           </h2>
         </div>
@@ -63,7 +67,7 @@ const NavBar = () => {
 
         {/* center nav menu  */}
         <div className="hidden md:block">
-          <ul className="font-secondary  flex items-center justify-center gap-6 text-title text-[17px] font-semibold">
+          <ul className="font-secondary  flex items-center justify-center gap-6 text-title xl:text-[17px] lg:font-medium  font-semibold">
             {links}
           </ul>
         </div>
@@ -73,7 +77,7 @@ const NavBar = () => {
           {
             user ? <div className="space-x-4 hidden lg:flex  items-center">
               <img src={user?.photoURL} alt="sdgdsg" className="w-10 lg:w-14 lg:h-14 h-10 rounded-full" />
-              <button  onClick={handleLogout} className="border-none bg-light-accent py-[10px] px-[30px] rounded-lg text-light-text font-secondary text-xl ml-3 cursor-pointer">Logout</button>
+              <button  onClick={handleLogout} className="border-none bg-light-accent xl:py-[10px] xl:px-[30px] rounded-lg text-light-text font-secondary xl:text-xl py-1 px-3 ml-3 cursor-pointer">Logout</button>
             </div> : <div className="space-x-4 hidden md:block">
             {/* button  */}
             <Link to="/auth/login" className="cursor-pointer">

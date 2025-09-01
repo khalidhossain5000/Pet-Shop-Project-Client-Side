@@ -10,6 +10,10 @@ import DashBoard from "../pages/AdminDashBoard/DashBoard";
 import AddProducts from "../pages/AdminDashBoard/AddProducts/AddProducts";
 import PrivateRoute from "./PrivateRoute";
 import AddPet from "../pages/AddAPet/AddPet";
+import AddBreeds from "../layouts/AdminLayout/AddBreeds/AddBreeds";
+import AllPet from "../pages/AllPet/AllPet";
+import AllBreeds from "../pages/Breeds/AllBreeds";
+import AdminAllPet from "../pages/AdminDashBoard/AllPetAdmin/AdminAllPet";
 
 
 export const router = createBrowserRouter([
@@ -30,6 +34,14 @@ export const router = createBrowserRouter([
         element:<PrivateRoute>
           <AddPet/>
         </PrivateRoute>
+      },
+      {
+        path:'all-pets',
+        Component:AllPet
+      },
+      {
+        path:'breeds',
+        Component:AllBreeds
       }
     ],
   },
@@ -50,7 +62,9 @@ export const router = createBrowserRouter([
   },
   {
     path:'dashboard',
-    element:<AdminDashboard/>,
+    element:<PrivateRoute>
+      <AdminDashboard/>
+    </PrivateRoute>,
     children:[
       {
         index:true,
@@ -59,6 +73,14 @@ export const router = createBrowserRouter([
       {
         path:'add-products',
         element:<AddProducts/>
+      },
+      {
+        path:'add-breeds',
+        element:<AddBreeds/>
+      },
+      {
+        path:'admin-all-pet',
+        Component:AdminAllPet
       }
     ]
     

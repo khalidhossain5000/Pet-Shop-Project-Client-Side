@@ -57,14 +57,14 @@ const SideBar = ({ onClose }) => {
       path: "/admin/analytics",
     },
     {
-      text: "Add Pet",
+      text: "All Pet",
       icon: <FiSettings className="w-5 h-5" />,
-      path: "/add-pet",
+      path: "/dashboard/admin-all-pet",
     },
     {
       text: "Add Breeds",
       icon: <FiSettings className="w-5 h-5" />,
-      path: "/add-breeds",
+      path: "/dashboard/add-breeds",
     },
   ];
 
