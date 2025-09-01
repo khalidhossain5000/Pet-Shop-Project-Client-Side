@@ -8,6 +8,8 @@ import CategoryDetails from "../pages/Home/Categories/CategoryDetails";
 import AdminDashboard from "../layouts/AdminLayout/AdminDashboard";
 import DashBoard from "../pages/AdminDashBoard/DashBoard";
 import AddProducts from "../pages/AdminDashBoard/AddProducts/AddProducts";
+import PrivateRoute from "./PrivateRoute";
+import AddPet from "../pages/AddAPet/AddPet";
 
 
 export const router = createBrowserRouter([
@@ -23,8 +25,15 @@ export const router = createBrowserRouter([
         path: "category/:categoryName",
         element: <CategoryDetails />,
       },
+      {
+        path:'add-a-pet',
+        element:<PrivateRoute>
+          <AddPet/>
+        </PrivateRoute>
+      }
     ],
   },
+
   {
     path: "auth",
     element: <AuthLayout />,

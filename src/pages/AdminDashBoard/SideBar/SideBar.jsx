@@ -57,9 +57,14 @@ const SideBar = ({ onClose }) => {
       path: "/admin/analytics",
     },
     {
-      text: "Settings",
+      text: "Add Pet",
       icon: <FiSettings className="w-5 h-5" />,
-      path: "/admin/settings",
+      path: "/add-pet",
+    },
+    {
+      text: "Add Breeds",
+      icon: <FiSettings className="w-5 h-5" />,
+      path: "/add-breeds",
     },
   ];
 

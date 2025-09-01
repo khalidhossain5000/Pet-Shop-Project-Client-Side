@@ -33,6 +33,9 @@ const NavBar = () => {
         <Link to="">Find a pet</Link>
       </li>
       <li>
+        <Link to="/add-a-pet">Add a pet</Link>
+      </li>
+      <li>
         <Link to="">Breeds</Link>
       </li>
       <li>
@@ -48,7 +51,7 @@ const NavBar = () => {
   return (
     <div className="bg-light-secondary z-[999] relative">
       {/* top menu start  */}
-      <nav className="md:container mx-auto flex items-center justify-between py-5 md:px-0 px-4 border-b-1 border-black/30 md:border-b-0 mb-24">
+      <nav className="md:container mx-auto flex items-center justify-between py-5 md:px-0 px-4 border-b-1 border-black/30 md:border-b-0 pb-24">
         {/* logo  */}
         <div className="flex items-center gap-3">
           <img className="block" src={logo} alt="sdgg" />
@@ -60,7 +63,7 @@ const NavBar = () => {
 
         {/* center nav menu  */}
         <div className="hidden md:block">
-          <ul className="font-secondary  flex items-center justify-center gap-6 text-title text-xl">
+          <ul className="font-secondary  flex items-center justify-center gap-6 text-title text-[17px] font-semibold">
             {links}
           </ul>
         </div>
