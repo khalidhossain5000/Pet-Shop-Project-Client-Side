@@ -70,13 +70,16 @@ const AdminAllPet = () => {
       console.error("Error approving pet:", error);
     },
   });
-
+  const handleApprove = (petId) => {
+    approvePetMutation.mutate(petId);
+  };
   // Reject pet mutation
   const rejectPetMutation = useMutation({
-    mutationFn: async ({ petId, reason }) => {
+    mutationFn: async ({ petId, rejectReason }) => {
       const response = await axiosSecure.patch(`/admin/pets/${petId}/reject`, {
-        reason,
+        rejectReason,
       });
+      
       return response.data;
     },
     onSuccess: () => {
@@ -91,7 +94,19 @@ const AdminAllPet = () => {
       console.error("Error rejecting pet:", error);
     },
   });
-
+  const handleReject = (petId) => {
+    const pet = pets.find((pet) => pet._id === petId);
+    setPetToReject(pet);
+    setRejectDialogOpen(true);
+  };
+  const confirmReject = () => {
+    if (petToReject && rejectionReason.trim()) {
+      rejectPetMutation.mutate({
+        petId: petToReject._id,
+        rejectReason: rejectionReason
+      });
+    }
+  };
   // Delete pet mutation
   const deletePetMutation = useMutation({
     mutationFn: async (petId) => {
@@ -110,26 +125,8 @@ const AdminAllPet = () => {
     },
   });
 
+
   // Handle actions
-  const handleApprove = (petId) => {
-    approvePetMutation.mutate(petId);
-  };
-
-  const handleReject = (petId) => {
-    const pet = pets.find((pet) => pet._id === petId);
-    setPetToReject(pet);
-    setRejectDialogOpen(true);
-  };
-
-  const confirmReject = () => {
-    if (petToReject && rejectionReason.trim()) {
-      rejectPetMutation.mutate({
-        petId: petToReject._id,
-        reason: rejectionReason.trim(),
-      });
-    }
-  };
-
   const handleDelete = (petId) => {
     setSelectedPet(pets.find((pet) => pet._id === petId));
     setDeleteDialogOpen(true);
@@ -168,14 +165,11 @@ const AdminAllPet = () => {
   return (
     <div className="bg-light-secondary min-h-screen py-8">
       <div className="container mx-auto px-4">
-        <Typography
-          variant="h4"
-          component="h1"
-          gutterBottom
-          className="text-light-text mb-6"
+        <h1
+          className="text-light-text mb-6 text-xl lg:text-3xl font-primary"
         >
           Admin Pet Management
-        </Typography>
+        </h1>
 
         {pets && pets.length > 0 ? (
           <TableContainer component={Paper} elevation={2}>

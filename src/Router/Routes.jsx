@@ -14,6 +14,7 @@ import AddBreeds from "../layouts/AdminLayout/AddBreeds/AddBreeds";
 import AllPet from "../pages/AllPet/AllPet";
 import AllBreeds from "../pages/Breeds/AllBreeds";
 import AdminAllPet from "../pages/AdminDashBoard/AllPetAdmin/AdminAllPet";
+import AdminAllProducts from "../pages/AdminDashBoard/AdminAllProducts/AdminAllProducts";
 
 
 export const router = createBrowserRouter([
@@ -81,6 +82,10 @@ export const router = createBrowserRouter([
       {
         path:'admin-all-pet',
         Component:AdminAllPet
+      },
+      {
+        path:'admin-all-products',
+        Component:AdminAllProducts
       }
     ]
     

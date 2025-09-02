@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router";
-import logo from "../../../assets/logo/logo-header.png"
+import logo from "../../../assets/logo/logo-header.png";
 import {
   FiHome,
   FiUsers,
@@ -11,9 +11,11 @@ import {
   FiX,
   FiHeart,
   FiGrid,
-  FiBarChart2,
   FiStar,
 } from "react-icons/fi";
+import { IoAddOutline } from "react-icons/io5";
+import { IoMdAddCircleOutline } from "react-icons/io";
+
 
 const SideBar = ({ onClose }) => {
   const navigate = useNavigate();
@@ -32,40 +34,30 @@ const SideBar = ({ onClose }) => {
     },
     {
       text: "Add Products",
-      icon: <FiPackage className="w-5 h-5" />,
+      icon: <IoMdAddCircleOutline className="w-5 h-5" />,
       path: "/dashboard/add-products",
     },
-     {
-      text: "All Products",
-      icon: <FiPackage className="w-5 h-5" />,
-      path: "/dashboard/all-products",
+    {
+      text: "Add Breeds",
+      icon: <IoAddOutline className="w-5 h-5" />,
+      path: "/dashboard/add-breeds",
     },
     {
-      text: "Orders",
+      text: "All Products",
+      icon: <FiPackage className="w-5 h-5" />,
+      path: "/dashboard/admin-all-products",
+    },
+    {
+      text: "All Orders",
       icon: <FiShoppingCart className="w-5 h-5" />,
       path: "/dashboard/orders",
     },
     {
-      text: "Categories",
-      icon: <FiGrid className="w-5 h-5" />,
-      path: "/dashboard/categories",
-    },
-    { text: "Pets", icon: <FiStar className="w-5 h-5" />, path: "/dashboard/pets" },
-    {
-      text: "Analytics",
-      icon: <FiBarChart2 className="w-5 h-5" />,
-      path: "/admin/analytics",
-    },
-    {
-      text: "All Pet",
+      text: "All Pets",
       icon: <FiSettings className="w-5 h-5" />,
       path: "/dashboard/admin-all-pet",
     },
-    {
-      text: "Add Breeds",
-      icon: <FiSettings className="w-5 h-5" />,
-      path: "/dashboard/add-breeds",
-    },
+    
   ];
 
   const handleNavigation = (path) => {
@@ -88,10 +80,9 @@ const SideBar = ({ onClose }) => {
           <div className="flex gap-3 items-center">
             <img src={logo} alt="" />
             <h2 className="font-secondary text-light-text text-xl ">
-            Browse<span className="text-light-accent"> 4 </span>Pets
-          </h2>
+              Browse<span className="text-light-accent"> 4 </span>Pets
+            </h2>
           </div>
-          
         </div>
         {onClose && (
           <button
