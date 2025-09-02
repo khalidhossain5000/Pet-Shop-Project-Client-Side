@@ -13,7 +13,6 @@ import {
   Avatar,
   Typography,
   Box,
-  CircularProgress,
   Button,
   Dialog,
   DialogTitle,
@@ -22,6 +21,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Loading from "../../../Shared/Loading/Loading.jsx";
+import Swal from "sweetalert2";
 
 const AdminAllProducts = () => {
   const axiosSecure = useAxiosSecure();
@@ -48,14 +48,15 @@ const AdminAllProducts = () => {
     },
   });
 
-  const { mutate: deleteProduct, isPending: isDeleting } = useMutation({
-    mutationFn: async (productId) => {
-      await axiosSecure.delete(`/admin/products/${productId}`);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin-products"] });
-    },
-  });
+  const { mutateAsync: deleteProductAsync, isPending: isDeleting } =
+    useMutation({
+      mutationFn: async (productId) => {
+        await axiosSecure.delete(`/admin/products/${productId}`);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["admin-products"] });
+      },
+    });
 
   if (isLoading) {
     return <Loading />;
@@ -80,6 +81,7 @@ const AdminAllProducts = () => {
         <Table>
           <TableHead>
             <TableRow>
+              <TableCell>SL</TableCell>
               <TableCell>Image</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Category</TableCell>
@@ -89,8 +91,9 @@ const AdminAllProducts = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((product) => (
+            {products.map((product, index) => (
               <TableRow key={product._id}>
+                <TableCell>{index + 1}</TableCell>
                 <TableCell>
                   <Avatar src={product?.productImage} variant="rounded" />
                 </TableCell>
@@ -122,10 +125,36 @@ const AdminAllProducts = () => {
                     aria-label="delete"
                     color="error"
                     disabled={isDeleting}
-                    onClick={() => {
+                    onClick={async () => {
                       const id = product._id;
                       if (!id) return;
-                      deleteProduct(id);
+
+                      const result = await Swal.fire({
+                        title: "Are you sure?",
+                        text: "This will permanently delete the product.",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "Yes, delete it!",
+                      });
+
+                      if (result.isConfirmed) {
+                        try {
+                          await deleteProductAsync(id);
+                          Swal.fire(
+                            "Deleted!",
+                            "Product has been deleted.",
+                            "success"
+                          );
+                        } catch (e) {
+                          Swal.fire(
+                            "Error",
+                            e?.message || "Failed to delete.",
+                            "error"
+                          );
+                        }
+                      }
                     }}
                   >
                     <DeleteIcon />
