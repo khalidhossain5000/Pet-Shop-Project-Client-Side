@@ -48,14 +48,14 @@ const SideBar = ({ onClose }) => {
       path: "/dashboard/admin-all-products",
     },
     {
-      text: "All Orders",
-      icon: <FiShoppingCart className="w-5 h-5" />,
-      path: "/dashboard/orders",
-    },
-    {
       text: "All Pets",
       icon: <FiSettings className="w-5 h-5" />,
       path: "/dashboard/admin-all-pet",
+    },
+    {
+      text: "All Orders",
+      icon: <FiShoppingCart className="w-5 h-5" />,
+      path: "/dashboard/orders",
     },
     
   ];

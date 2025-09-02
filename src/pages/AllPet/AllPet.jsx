@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Select from "react-select";
 import useAxios from "../../../Hooks/useAxios";
+import { Link } from "react-router";
 
 const AllPet = () => {
   const axiosInstance = useAxios();
@@ -260,23 +261,24 @@ const AllPet = () => {
                             ${pet?.price}
                           </span>
                         </div>
-
-                        <button className="bg-light-accent hover:bg-light-accent/90 text-light-text font-secondary font-semibold py-2.5 px-5 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg border border-light-accent/20 flex items-center space-x-2 cursor-pointer">
-                          <span>View Details</span>
-                          <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
-                        </button>
+                        <Link to={`/final-pet-details/${pet?._id}`}>
+                          <button className="bg-light-accent hover:bg-light-accent/90 text-light-text font-secondary font-semibold py-2.5 px-5 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg border border-light-accent/20 flex items-center space-x-2 cursor-pointer">
+                            <span>View Details</span>
+                            <svg
+                              className="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M9 5l7 7-7 7"
+                              />
+                            </svg>
+                          </button>
+                        </Link>
                       </div>
                     </div>
                   </div>

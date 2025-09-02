@@ -18,6 +18,7 @@ import AdminAllProducts from "../pages/AdminDashBoard/AdminAllProducts/AdminAllP
 import PublicAllProducts from "../pages/PublicAllProducts/PublicAllProducts";
 import PetDetails from "../pages/PetDetails/PetDetails";
 import AllUsers from "../pages/AdminDashBoard/AllUsers/AllUsers";
+import FinalPetDetails from "../pages/FInalPetDetails/FinalPetDetails";
 
 
 
@@ -56,7 +57,12 @@ export const router = createBrowserRouter([
         path:'pet-details/:id',
         element:
           <PetDetails/>
-        
+      },
+      {
+        path:'final-pet-details/:id',
+        element:<PrivateRoute>
+          <FinalPetDetails/>
+        </PrivateRoute>
       }
     ],
   },
