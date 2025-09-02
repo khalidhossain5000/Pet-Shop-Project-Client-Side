@@ -48,7 +48,7 @@ const PetDetails = () => {
   }
 
   return (
-    <div className="bg-light-secondary">
+    <div className="bg-light-secondary py-12 lg:py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
         {/* Header / Breadcrumb placeholder */}
         <div className="mb-6 sm:mb-8">
@@ -67,11 +67,11 @@ const PetDetails = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
           {/* Image Section */}
           <div className="lg:col-span-5">
-            <div className="bg-white rounded-xl border border-light-text/10 p-4 sm:p-6 flex items-center justify-center">
+            <div className="bg-white rounded-xl border border-light-text/10 p-4 sm:p-6 flex items-center justify-center h-full">
               <img
                 src={product?.productImage}
                 alt={product?.productName}
-                className="w-auto object-contain rounded-lg max-h-[440px] sm:max-h-[520px] lg:max-h-[600px]"
+                className="w-auto lg:w-22 object-contain rounded-lg max-h-[440px] sm:max-h-[520px] lg:max-h-[900px]"
               />
             </div>
           </div>

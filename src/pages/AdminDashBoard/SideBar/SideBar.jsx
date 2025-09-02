@@ -30,7 +30,7 @@ const SideBar = ({ onClose }) => {
     {
       text: "All Users",
       icon: <FiUsers className="w-5 h-5" />,
-      path: "/dashboard/users",
+      path: "/dashboard/all-users",
     },
     {
       text: "Add Products",

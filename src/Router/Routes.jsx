@@ -17,6 +17,7 @@ import AdminAllPet from "../pages/AdminDashBoard/AllPetAdmin/AdminAllPet";
 import AdminAllProducts from "../pages/AdminDashBoard/AdminAllProducts/AdminAllProducts";
 import PublicAllProducts from "../pages/PublicAllProducts/PublicAllProducts";
 import PetDetails from "../pages/PetDetails/PetDetails";
+import AllUsers from "../pages/AdminDashBoard/AllUsers/AllUsers";
 
 
 
@@ -99,6 +100,10 @@ export const router = createBrowserRouter([
       {
         path:'admin-all-products',
         Component:AdminAllProducts
+      },
+      {
+        path:'all-users',
+        Component:AllUsers
       }
     ]
     
