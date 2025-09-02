@@ -106,7 +106,7 @@ const PublicAllProducts = () => {
               </select>
             </div>
           </aside>
-g
+
           <section className="md:col-span-9 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
             {filteredProducts.map((product) => (
               <div
@@ -115,9 +115,9 @@ g
               >
                 <div className="sm:flex items-center sm:gap-4">
                   <div className="flex-shrink-0 flex justify-center sm:block mb-3 sm:mb-0">
-                    <div className="w-24 h-24 sm:w-28 sm:h-28 bg-[#fff9f4] rounded-lg p-3 flex items-center justify-center">
+                    <div className="w-22 h-22 sm:w-24 sm:h-24 bg-[#fff9f4] rounded-lg p-3 flex items-center justify-center">
                       <img
-                        className="w-full h-full object-contain rounded-md"
+                        className="w-9/12 h-full object-contain rounded-md"
                         src={product?.productImage}
                         alt={product?.productName}
                       />
@@ -148,14 +148,14 @@ g
 
                     <div className="flex flex-col sm:flex-row justify-start gap-2 mt-3">
                       <Link className="w-full sm:w-auto">
-                        <button className="w-full sm:w-auto bg-light-accent hover:bg-light-accent/90 text-light-text font-secondary font-medium text-sm py-2 px-4 rounded-md transition-all duration-200 hover:scale-105 hover:shadow-sm border border-light-accent/20 cursor-pointer">
+                        <button className="w-full sm:w-auto bg-light-accent hover:bg-light-accent/90 text-light-text font-secondary font-medium text-sm py-1 xl:py-2 xl:whitespace-nowrap px-4 rounded-md transition-all duration-200 hover:scale-105 hover:shadow-sm border border-light-accent/20 cursor-pointer">
                           See More
                         </button>
                       </Link>
                       <button
                         onClick={() => handleAddToCart(product)}
                         disabled={(product?.productStock ?? 0) <= 0}
-                        className="w-full sm:w-auto bg-light-text text-white hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed font-secondary font-medium text-sm py-2 px-4 rounded-md transition-all duration-200 cursor-pointer"
+                        className="w-full sm:w-auto bg-light-text text-white hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed font-secondary font-medium text-sm py-1 xl:py-2  xl:px-3  xl:whitespace-nowrap px-4 rounded-md transition-all duration-200 cursor-pointer"
                       >
                         Add to Cart
                       </button>

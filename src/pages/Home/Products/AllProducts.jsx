@@ -96,8 +96,8 @@ const AllProducts = () => {
 
                     {/* See More button aligned with content */}
                     <div className="flex justify-start">
-                      <Link>
-                        <button className="bg-light-accent hover:bg-light-accent/90 text-light-text font-secondary font-medium text-sm py-2 px-4 rounded-md transition-all duration-200 hover:scale-105 hover:shadow-sm border border-light-accent/20">
+                      <Link to={`/pet-details/${product._id}`}>
+                        <button className="bg-light-accent hover:bg-light-accent/90 text-light-text font-secondary font-medium text-sm py-2 px-4 rounded-md transition-all duration-200 hover:scale-105 hover:shadow-sm border border-light-accent/20 cursor-pointer">
                           See More
                         </button>
                       </Link>
