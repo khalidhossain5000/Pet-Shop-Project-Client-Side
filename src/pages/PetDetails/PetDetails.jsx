@@ -53,7 +53,7 @@ const PetDetails = () => {
         {/* Header / Breadcrumb placeholder */}
         <div className="mb-6 sm:mb-8">
           <h1 className="text-light-text text-xl sm:text-2xl lg:text-3xl font-primary">
-            {product?.productName}
+           Product Name: {product?.productName}
           </h1>
           <p className="text-light-text/70 text-sm mt-1">
             Category:{" "}

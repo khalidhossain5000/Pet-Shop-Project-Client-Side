@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../../Hooks/useAxios";
+import { Link } from "react-router";
+import Loading from "../../Shared/Loading/Loading";
 
 const AllBreeds = () => {
   const axiosInstance = useAxios();
@@ -19,26 +21,16 @@ const AllBreeds = () => {
     },
   });
 
-  console.log(breeds);
-
   const handleImageError = (breedId) => {
     setImageErrors((prev) => new Set(prev).add(breedId));
   };
-
+if (isLoading) return <Loading/>
   return (
     <div className="bg-light-secondary min-h-screen py-8">
       <div className="container mx-auto px-4">
         <h1 className="text-3xl font-primary font-bold text-light-text mb-8 text-center">
           All Pet Breeds
         </h1>
-
-        {/* Loading State */}
-        {isLoading && (
-          <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-light-accent mx-auto"></div>
-            <p className="text-light-text mt-4 text-lg">Loading breeds...</p>
-          </div>
-        )}
 
         {/* Error State */}
         {error && (
@@ -123,22 +115,24 @@ const AllBreeds = () => {
                   )}
 
                   {/* View Details Button */}
-                  <button className="w-full bg-light-accent hover:bg-light-accent/90 text-light-text font-secondary font-semibold py-2.5 px-5 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg border border-light-accent/20 flex items-center justify-center space-x-2 cursor-pointer">
-                    <span>View Details</span>
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </button>
+                  <Link to={`/breed-details/${breed._id}`}>
+                    <button className="w-full bg-light-accent hover:bg-light-accent/90 text-light-text font-secondary font-semibold py-2.5 px-5 rounded-lg transition-all duration-200 hover:scale-105 hover:shadow-lg border border-light-accent/20 flex items-center justify-center space-x-2 cursor-pointer">
+                      <span>View Details</span>
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 5l7 7-7 7"
+                        />
+                      </svg>
+                    </button>
+                  </Link>
                 </div>
               </div>
             ))}

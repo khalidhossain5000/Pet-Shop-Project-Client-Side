@@ -93,7 +93,7 @@ const AddBreeds = () => {
         });
       });
   };
-  console.log(breedsPic);
+
   return (
     <div className="bg-light-secondary py-10">
       <div className="container mx-auto px-4">
@@ -228,7 +228,22 @@ const AddBreeds = () => {
                 className="w-full px-3 py-2 border border-light-text/20 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-light-accent focus:border-light-accent"
               />
             </div>
-
+            {/* Breed price */}
+            <div>
+              <label
+                htmlFor="breedPrice"
+                className="block text-sm font-medium text-light-text mb-2"
+              >
+                Breed Price
+              </label>
+              <input
+                id="breedPrice"
+                name="breedPrice"
+                type="number"
+                placeholder="Enter breed Price"
+                className="w-full px-3 py-2 border border-light-text/20 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-light-accent focus:border-light-accent"
+              />
+            </div>
             {/* Image Upload */}
             <div>
               <label
