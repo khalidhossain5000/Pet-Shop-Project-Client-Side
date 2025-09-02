@@ -15,6 +15,8 @@ import AllPet from "../pages/AllPet/AllPet";
 import AllBreeds from "../pages/Breeds/AllBreeds";
 import AdminAllPet from "../pages/AdminDashBoard/AllPetAdmin/AdminAllPet";
 import AdminAllProducts from "../pages/AdminDashBoard/AdminAllProducts/AdminAllProducts";
+import PublicAllProducts from "../pages/PublicAllProducts/PublicAllProducts";
+
 
 
 export const router = createBrowserRouter([
@@ -43,7 +45,11 @@ export const router = createBrowserRouter([
       {
         path:'breeds',
         Component:AllBreeds
-      }
+      },
+      {
+        path:'all-products',
+        Component:PublicAllProducts
+      },
     ],
   },
 

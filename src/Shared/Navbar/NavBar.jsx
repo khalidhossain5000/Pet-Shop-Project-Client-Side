@@ -37,6 +37,9 @@ const NavBar = () => {
         <Link to="">Find a pet</Link>
       </li>
       <li>
+        <Link to="/all-products">All Products</Link>
+      </li>
+      <li>
         <Link to="/add-a-pet">Add a pet</Link>
       </li>
       <li>

@@ -15,7 +15,7 @@ const AllProducts = () => {
     },
   });
 
-  if(isLoading) return <Loading/>
+  if (isLoading) return <Loading />;
   return (
     <div className="bg-light-secondary py-12 lg:py-24">
       <div className="container mx-auto">

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { FiUpload, FiPlus } from "react-icons/fi";
 import Select from "react-select";
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 
@@ -11,18 +11,7 @@ const AddProducts = () => {
   const [profilePic, setProfilePic] = useState(null);
   const axiosSecure = useAxiosSecure();
 
-  // TanStack Query to fetch products
-  const {
-    data: products,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["products"],
-    queryFn: async () => {
-      const response = await axiosSecure.get("/homepage/products");
-      return response.data;
-    },
-  });
+ 
   // Category options for react-select
   const categoryOptions = [
     { value: "dog", label: "Dog" },
@@ -84,31 +73,7 @@ const AddProducts = () => {
           </p>
         </div>
 
-        {/* Products Data Display */}
-        <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-          <h3 className="text-lg font-semibold text-gray-700 mb-3">
-            Current Products
-          </h3>
-          {isLoading && (
-            <div className="text-center py-4">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-              <p className="text-gray-600 mt-2">Loading products...</p>
-            </div>
-          )}
-          {error && (
-            <div className="text-red-600 p-3 bg-red-50 rounded-md">
-              Error loading products: {error.message}
-            </div>
-          )}
-          {products && (
-            <div className="text-sm text-gray-600">
-              <p>Total Products: {products.length || 0}</p>
-              {products.length > 0 && (
-                <p className="mt-2">Latest: {products[0]?.name || "N/A"}</p>
-              )}
-            </div>
-          )}
-        </div>
+        
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Product Image Upload */}
@@ -197,6 +162,26 @@ const AddProducts = () => {
                 required
               />
             </div>
+          </div>
+
+          {/* Quantity / Stock */}
+          <div>
+            <label
+              htmlFor="productStock"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Quantity / Stock
+            </label>
+            <input
+              type="number"
+              id="productStock"
+              name="productStock"
+              min="0"
+              step="1"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="Enter available quantity"
+              required
+            />
           </div>
 
           {/* Category */}

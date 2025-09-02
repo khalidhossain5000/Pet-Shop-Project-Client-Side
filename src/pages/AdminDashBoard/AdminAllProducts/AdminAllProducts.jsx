@@ -43,7 +43,7 @@ const AdminAllProducts = () => {
   } = useQuery({
     queryKey: ["admin-products"],
     queryFn: async () => {
-      const response = await axiosSecure.get("/admin/products");
+      const response = await axiosSecure.get("/products");
       return response.data || [];
     },
   });
