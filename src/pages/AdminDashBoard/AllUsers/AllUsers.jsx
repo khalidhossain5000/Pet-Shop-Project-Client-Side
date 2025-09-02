@@ -37,39 +37,44 @@ const AllUsers = () => {
       return res.data || [];
     },
   });
-//make admin starts
+
+  //make admin starts
   const { mutateAsync: makeAdminAsync, isPending: isMakingAdmin } = useMutation(
     {
       mutationFn: async (userId) => {
         await axiosSecure.patch(`/admin/users/${userId}/make-admin`);
       },
-      onSuccess: () =>
-        queryClient.invalidateQueries({ queryKey: ["admin-users"] }),
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["admin-users"] });
+        Swal.fire("Success", "User role updated to admin.", "success");
+      },
     }
   );
-//make admin ends
+  //make admin ends
 
-//remove admin starts
+  //remove admin starts
   const { mutateAsync: removeAdminAsync, isPending: isRemovingAdmin } =
     useMutation({
       mutationFn: async (userId) => {
         await axiosSecure.patch(`/admin/users/${userId}/remove-admin`);
       },
-      onSuccess: () =>
+      onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: ["admin-users"] }),
+          Swal.fire("Success", "User Removed From Admin", "success");
+      },
     });
-//remove admin ends
+  //remove admin ends
 
-//delete user starts
+  //delete user starts
   const { mutateAsync: deleteUserAsync, isPending: isDeleting } = useMutation({
     mutationFn: async (userId) => {
       await axiosSecure.delete(`/admin/users/${userId}`);
     },
-    onSuccess: () =>
-      queryClient.invalidateQueries({ queryKey: ["admin-users"] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["admin-users"] });
+    },
   });
-//delete user ends
-
+  //delete user ends
 
   if (isLoading) return <Loading />;
   if (isError) {
