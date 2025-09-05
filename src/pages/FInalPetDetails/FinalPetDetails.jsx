@@ -10,7 +10,7 @@ import { RxCross2 } from "react-icons/rx";
 const FinalPetDetails = () => {
   const axiosInstance = useAxios();
   const { id } = useParams();
-  const { isDrawerOpen, toggleDrawer } =
+  const { isDrawerOpen, toggleDrawer,addToCart } =
     useCart();
 
   const { data: pets, isLoading } = useQuery({
@@ -80,7 +80,7 @@ const FinalPetDetails = () => {
               </p>
               <div className="mt-6 flex gap-4">
                 <button
-                  
+                  onClick={()=>{addToCart(singlePetData)}}
                   className="px-6 py-3 rounded-2xl font-semibold shadow-md transition-all duration-300 bg-[var(--color-light-accent)] text-[var(--color-light-text)] hover:bg-yellow-400 hover:scale-105 cursor-pointer"
                 >
                   Add to Cart

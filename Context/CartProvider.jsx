@@ -20,7 +20,23 @@ const CartProvider = ({ children }) => {
   };
   // inside CartProvider
   
+  const addToCart=async(petData)=>{
+    
+    const cartData={
+      email:user?.email,
+      item:{
+        petName:petData?.petName,
+        petPrice:petData?.price,
+        petImage:petData?.petPic
+      }
+    }
 
+    const res=await axiosSecure.post('/cart',cartData)
+    console.log("this is res",res)
+    setCart(res.data)
+    alert("Item Added To cart successfully")
+     setIsDrawerOpen(true);
+  }
 
 
   return (
@@ -28,9 +44,9 @@ const CartProvider = ({ children }) => {
       value={{
         cart,
         setCart,
-        
         isDrawerOpen,
         toggleDrawer,
+        addToCart
         
       }}
     >
