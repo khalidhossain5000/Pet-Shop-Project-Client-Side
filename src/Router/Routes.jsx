@@ -20,6 +20,7 @@ import PetDetails from "../pages/PetDetails/PetDetails";
 import AllUsers from "../pages/AdminDashBoard/AllUsers/AllUsers";
 import FinalPetDetails from "../pages/FInalPetDetails/FinalPetDetails";
 import BreedDetails from "../pages/BreedsDetails/BreedDetails";
+import CartPage from "../pages/CartPage/CartPage";
 
 
 
@@ -69,6 +70,12 @@ export const router = createBrowserRouter([
         path:'breed-details/:id',
         element:<PrivateRoute>
           <BreedDetails/>
+        </PrivateRoute>
+      },
+      {
+        path:'cart',
+        element:<PrivateRoute>
+          <CartPage/>
         </PrivateRoute>
       }
     ],

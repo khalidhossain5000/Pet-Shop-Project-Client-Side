@@ -3,10 +3,16 @@ import { useParams } from "react-router";
 import useAxios from "../../../Hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../Shared/Loading/Loading";
+import { useCart } from "../../../Hooks/useCart";
+import Drawer from "@mui/material/Drawer";
+import { RxCross2 } from "react-icons/rx";
 
 const FinalPetDetails = () => {
   const axiosInstance = useAxios();
   const { id } = useParams();
+  const { isDrawerOpen, toggleDrawer } =
+    useCart();
+
   const { data: pets, isLoading } = useQuery({
     queryKey: ["pets"],
     queryFn: async () => {
@@ -16,7 +22,7 @@ const FinalPetDetails = () => {
   });
   if (isLoading) return <Loading />;
   const singlePetData = pets.find((pet) => pet._id === id);
-
+  
   return (
     <div className="py-12 lg:pt-22">
       <div className="max-w-4xl mx-auto  bg-light-secondary rounded-2xl shadow-lg p-8 font-secondary">
@@ -73,7 +79,10 @@ const FinalPetDetails = () => {
                 ${singlePetData.price}
               </p>
               <div className="mt-6 flex gap-4">
-                <button className="px-6 py-3 rounded-2xl font-semibold shadow-md transition-all duration-300 bg-[var(--color-light-accent)] text-[var(--color-light-text)] hover:bg-yellow-400 hover:scale-105">
+                <button
+                  
+                  className="px-6 py-3 rounded-2xl font-semibold shadow-md transition-all duration-300 bg-[var(--color-light-accent)] text-[var(--color-light-text)] hover:bg-yellow-400 hover:scale-105 cursor-pointer"
+                >
                   Add to Cart
                 </button>
                 <button className="px-6 py-3 rounded-2xl font-semibold shadow-md transition-all duration-300 bg-[var(--color-light-text)] text-[var(--color-light-primary)] hover:bg-gray-900 hover:scale-105">
@@ -101,6 +110,13 @@ const FinalPetDetails = () => {
           </span>
         </div>
       </div>
+      <Drawer
+        anchor="right" // ডান দিক থেকে slide হবে
+        open={isDrawerOpen} // context থেকে state
+        onClose={() => toggleDrawer(false)} // বন্ধ করার জন্য
+      >
+        
+      </Drawer>
     </div>
   );
 };

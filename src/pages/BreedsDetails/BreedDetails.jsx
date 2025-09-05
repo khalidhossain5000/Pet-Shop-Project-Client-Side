@@ -35,7 +35,7 @@ const BreedDetails = () => {
           {/* Info Section */}
           <div className="w-full md:w-1/2 flex flex-col justify-between">
             <div>
-              <h1 className="text-3xl font-[var(--font-primary)] font-bold text-[var(--color-light-text)] mb-2">
+              <h1 className="text-3xl font-primary font-bold text-light-text mb-2">
                 {singleBreed.breedName}
               </h1>
               <p className="text-lg text-gray-600 capitalize mb-4">
