@@ -10,7 +10,7 @@ const CartProvider = ({ children }) => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
-  console.log(user, axiosSecure);
+  
   // Cart state
   const [cart, setCart] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -23,6 +23,7 @@ const CartProvider = ({ children }) => {
     const cartData = {
       email: user?.email,
       item: {
+        petId: petData?._id,
         petName: petData?.petName,
         petPrice: petData?.price,
         petImage: petData?.petPic,
@@ -31,18 +32,15 @@ const CartProvider = ({ children }) => {
 
     const res = await axiosSecure.post("/cart", cartData);
     console.log("this is res", res);
+    console.log(res.data);
     setCart(res.data);
-    toast.success(`User Registered SuccessFully`, {
+    toast.success(`Cart added`, {
       className: "w-[300px] h-[100px] text-xl font-bold ",
       removeDelay: 1000,
-      iconTheme: {
-        primary: "#16061e",
-        secondary: "#ef54e2",
-      },
       style: {
         border: "1px solid #08086c",
         color: "white",
-        backgroundImage: "linear-gradient(to bottom right, #050342,#01c3f4 )",
+        backgroundImage: "linear-gradient(to bottom right, #050342,#ffffff )",
       },
     });
     setIsDrawerOpen(true);

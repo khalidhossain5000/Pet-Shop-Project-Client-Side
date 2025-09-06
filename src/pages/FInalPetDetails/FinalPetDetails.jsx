@@ -10,7 +10,7 @@ import { RxCross2 } from "react-icons/rx";
 const FinalPetDetails = () => {
   const axiosInstance = useAxios();
   const { id } = useParams();
-  const { isDrawerOpen, toggleDrawer,addToCart } =
+  const { isDrawerOpen, toggleDrawer,addToCart,cart } =
     useCart();
 
   const { data: pets, isLoading } = useQuery({
@@ -115,7 +115,18 @@ const FinalPetDetails = () => {
         open={isDrawerOpen} // context থেকে state
         onClose={() => toggleDrawer(false)} // বন্ধ করার জন্য
       >
-        
+        {
+          cart?.map((item,i)=><div
+          key={i}
+          className="w-[600px]"
+          >
+            <div>
+              <img className="w-22" src={item?.petImage} alt="" />
+              <h2>{item?.petName}</h2>
+              <p>{item?.quantity}</p>
+            </div>
+          </div>)
+        }
       </Drawer>
     </div>
   );
