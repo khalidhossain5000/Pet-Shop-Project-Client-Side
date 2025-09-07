@@ -10,10 +10,9 @@ import { FaTrashAlt } from "react-icons/fa";
 const FinalPetDetails = () => {
   const axiosInstance = useAxios();
   const { id } = useParams();
-  const { isDrawerOpen, toggleDrawer,addToCart,cart } =
-    useCart();
-const items=cart?.items
-console.log('this is items and cart',items,cart);
+  const { isDrawerOpen, toggleDrawer, addToCart, cart } = useCart();
+  const items = cart?.items;
+  console.log("this is items and cart", items, cart);
   const { data: pets, isLoading } = useQuery({
     queryKey: ["pets"],
     queryFn: async () => {
@@ -23,7 +22,7 @@ console.log('this is items and cart',items,cart);
   });
   if (isLoading) return <Loading />;
   const singlePetData = pets.find((pet) => pet._id === id);
-  
+
   return (
     <div className="py-12 lg:pt-22">
       <div className="max-w-4xl mx-auto  bg-light-secondary rounded-2xl shadow-lg p-8 font-secondary">
@@ -81,7 +80,9 @@ console.log('this is items and cart',items,cart);
               </p>
               <div className="mt-6 flex gap-4">
                 <button
-                  onClick={()=>{addToCart(singlePetData)}}
+                  onClick={() => {
+                    addToCart(singlePetData);
+                  }}
                   className="px-6 py-3 rounded-2xl font-semibold shadow-md transition-all duration-300 bg-[var(--color-light-accent)] text-[var(--color-light-text)] hover:bg-yellow-400 hover:scale-105 cursor-pointer"
                 >
                   Add to Cart
@@ -116,58 +117,83 @@ console.log('this is items and cart',items,cart);
         open={isDrawerOpen} // context থেকে state
         onClose={() => toggleDrawer(false)} // বন্ধ করার জন্য
       >
-            <div
-      className={`fixed top-0 right-0 z-50 h-full w-full max-w-sm bg-light-secondary p-6 shadow-2xl transition-transform duration-300 ease-in-out transform ${
-        isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
-      }`}
-    >
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">My Cart</h2>
-        <button
-          onClick={() => toggleDrawer(false)}
-          className="text-gray-600 hover:text-gray-900 transition-colors"
+        <div
+          className={`fixed top-0 right-0 z-50 h-full w-full max-w-sm bg-light-secondary p-6 shadow-2xl transition-transform duration-300 ease-in-out transform ${
+            isDrawerOpen ? "translate-x-0" : "translate-x-full"
+          }`}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-
-      {items && items.length > 0 ? (
-        <div className="space-y-4">
-          {items.map((item, i) => (
-            <div
-              key={i}
-              className="flex items-center gap-4 bg-light-accent p-4 rounded-lg shadow-sm"
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold">My Cart</h2>
+            <button
+              onClick={() => toggleDrawer(false)}
+              className="text-gray-600 hover:text-gray-900 transition-colors"
             >
-              <img
-                src={item?.petImage}
-                alt={item?.petName}
-                className="w-20 h-20 object-cover rounded-md"
-              />
-              <div className="flex-grow">
-                <h3 className="text-lg font-semibold">{item?.petName}</h3>
-                <p className="text-sm text-gray-500">Quantity: {item?.quantity}</p>
-                <p className="text-base font-bold text-blue-600">
-                  Price: ${parseFloat(item?.petPrice).toFixed(2)}
-                </p>
-              </div>
-              <button
-                
-                className="p-2 text-red-500 hover:text-red-700 transition-colors"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                {/* Replaced FaTrashAlt with a simple SVG for compatibility */}
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-9H7a4 4 0 01-4-4V7" />
-                </svg>
-              </button>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+
+          {items && items.length > 0 ? (
+            <div className="space-y-4">
+              {items.map((item, i) => (
+                <div key={i}>
+                  <div className="flex items-center gap-4 bg-light-accent p-4 rounded-lg shadow-sm">
+                    <img
+                      src={item?.petImage}
+                      alt={item?.petName}
+                      className="w-20 h-20 object-cover rounded-md"
+                    />
+                    <div className="flex-grow">
+                      <h3 className="text-lg font-semibold">{item?.petName}</h3>
+                      <p className="text-sm text-gray-500">
+                        Quantity: {item?.quantity}
+                      </p>
+                      <p className="text-base font-bold text-blue-600">
+                        Price: ${parseFloat(item?.petPrice).toFixed(2)}
+                      </p>
+                    </div>
+                    <button className="p-2 text-red-500 hover:text-red-700 transition-colors">
+                      <RxCross2 className="text-2xl font-bold" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+              <div className="checkout-cart-bt">
+                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-light-text">
+                  SubTotal : $
+                </h2>
+
+                <div className="space-y-3 w-full">
+                  {/* Add to Cart button */}
+                  <button className="w-full bg-[#fff9f452] hover:bg-[#FFDC26] text-[#111111] font-semibold py-3 rounded-lg transition duration-300 shadow-md cursor-pointer">
+                    Add To Cart
+                  </button>
+
+                  {/* Checkout button */}
+                  <button className="w-full bg-light-accent  text-light-text font-semibold py-3 rounded-lg transition duration-300 shadow-md cursor-pointer">
+                    CheckOut
+                  </button>
+                </div>
+              </div>
             </div>
-          ))}
+          ) : (
+            <p className="text-center text-gray-500 mt-8">
+              Your cart is empty.
+            </p>
+          )}
         </div>
-      ) : (
-        <p className="text-center text-gray-500 mt-8">Your cart is empty.</p>
-      )}
-    </div>
       </Drawer>
     </div>
   );
