@@ -12,7 +12,11 @@ const FinalPetDetails = () => {
   const { id } = useParams();
   const { isDrawerOpen, toggleDrawer, addToCart, cart } = useCart();
   const items = cart?.items;
-  console.log("this is items and cart", items, cart);
+  //getting the subtotal value of the cart
+  const subtotal = items?.reduce((total, item) => {
+  return total + parseFloat(item.petPrice);
+}, 0);
+
   const { data: pets, isLoading } = useQuery({
     queryKey: ["pets"],
     queryFn: async () => {
@@ -172,7 +176,7 @@ const FinalPetDetails = () => {
               ))}
               <div className="checkout-cart-bt">
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-light-text">
-                  SubTotal : $
+                  SubTotal : ${subtotal.toFixed(2)}
                 </h2>
 
                 <div className="space-y-3 w-full">
