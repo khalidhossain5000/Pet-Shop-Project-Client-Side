@@ -5,12 +5,12 @@ import { toast } from "react-hot-toast";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 
 import useAuth from "../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const CartProvider = ({ children }) => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
 
-  
   // Cart state
   const [cart, setCart] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -34,6 +34,18 @@ const CartProvider = ({ children }) => {
     console.log("this is res", res);
     console.log(res.data);
     setCart(res.data);
+    //item already checking
+    if (res.data.status === "exists") {
+
+      return Swal.fire({
+        title: "Already in Cart!",
+        text: `Item is already in your cart.`,
+        icon: "info",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#3B82F6",
+      });
+    }
+    //item added notificotons
     toast.success(`Cart added`, {
       className: "w-[300px] h-[100px] text-xl font-bold ",
       removeDelay: 1000,
@@ -43,6 +55,7 @@ const CartProvider = ({ children }) => {
         backgroundImage: "linear-gradient(to bottom right, #050342,#ffffff )",
       },
     });
+
     setIsDrawerOpen(true);
   };
 

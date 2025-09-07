@@ -6,13 +6,14 @@ import Loading from "../../Shared/Loading/Loading";
 import { useCart } from "../../../Hooks/useCart";
 import Drawer from "@mui/material/Drawer";
 import { RxCross2 } from "react-icons/rx";
-
+import { FaTrashAlt } from "react-icons/fa";
 const FinalPetDetails = () => {
   const axiosInstance = useAxios();
   const { id } = useParams();
   const { isDrawerOpen, toggleDrawer,addToCart,cart } =
     useCart();
-
+const items=cart?.items
+console.log('this is items and cart',items,cart);
   const { data: pets, isLoading } = useQuery({
     queryKey: ["pets"],
     queryFn: async () => {
@@ -115,18 +116,58 @@ const FinalPetDetails = () => {
         open={isDrawerOpen} // context থেকে state
         onClose={() => toggleDrawer(false)} // বন্ধ করার জন্য
       >
-        {
-          cart?.map((item,i)=><div
-          key={i}
-          className="w-[600px]"
-          >
-            <div>
-              <img className="w-22" src={item?.petImage} alt="" />
-              <h2>{item?.petName}</h2>
-              <p>{item?.quantity}</p>
+            <div
+      className={`fixed top-0 right-0 z-50 h-full w-full max-w-sm bg-light-secondary p-6 shadow-2xl transition-transform duration-300 ease-in-out transform ${
+        isDrawerOpen ? 'translate-x-0' : 'translate-x-full'
+      }`}
+    >
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-bold">My Cart</h2>
+        <button
+          onClick={() => toggleDrawer(false)}
+          className="text-gray-600 hover:text-gray-900 transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      {items && items.length > 0 ? (
+        <div className="space-y-4">
+          {items.map((item, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-4 bg-light-accent p-4 rounded-lg shadow-sm"
+            >
+              <img
+                src={item?.petImage}
+                alt={item?.petName}
+                className="w-20 h-20 object-cover rounded-md"
+              />
+              <div className="flex-grow">
+                <h3 className="text-lg font-semibold">{item?.petName}</h3>
+                <p className="text-sm text-gray-500">Quantity: {item?.quantity}</p>
+                <p className="text-base font-bold text-blue-600">
+                  Price: ${parseFloat(item?.petPrice).toFixed(2)}
+                </p>
+              </div>
+              <button
+                
+                className="p-2 text-red-500 hover:text-red-700 transition-colors"
+              >
+                {/* Replaced FaTrashAlt with a simple SVG for compatibility */}
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-9H7a4 4 0 01-4-4V7" />
+                </svg>
+              </button>
             </div>
-          </div>)
-        }
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-gray-500 mt-8">Your cart is empty.</p>
+      )}
+    </div>
       </Drawer>
     </div>
   );
