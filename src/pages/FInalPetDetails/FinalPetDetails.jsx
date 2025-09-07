@@ -150,7 +150,8 @@ const FinalPetDetails = () => {
           </div>
 
           {items && items.length > 0 ? (
-            <div className="space-y-4">
+            <div className="space-y-4 flex flex-col h-full justify-between">
+              <div className="space-y-4 ">
               {items.map((item, i) => (
                 <div key={i}>
                   <div className="flex items-center gap-4 bg-light-accent p-4 rounded-lg shadow-sm">
@@ -174,7 +175,8 @@ const FinalPetDetails = () => {
                   </div>
                 </div>
               ))}
-              <div className="checkout-cart-bt">
+              </div>
+              <div className="checkout-cart-bt mb-16">
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-light-text">
                   SubTotal : ${subtotal.toFixed(2)}
                 </h2>
