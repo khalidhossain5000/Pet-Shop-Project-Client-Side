@@ -26,7 +26,7 @@ const FinalPetDetails = () => {
   });
   if (isLoading) return <Loading />;
   const singlePetData = pets.find((pet) => pet._id === id);
-
+console.log(singlePetData);
   return (
     <div className="py-12 lg:pt-22">
       <div className="max-w-4xl mx-auto  bg-light-secondary rounded-2xl shadow-lg p-8 font-secondary">
@@ -153,7 +153,8 @@ const FinalPetDetails = () => {
             <div className="space-y-4 flex flex-col h-full justify-between">
               <div className="space-y-4 ">
               {items.map((item, i) => (
-                <div key={i}>
+               
+               <div key={i}>
                   <div className="flex items-center gap-4 bg-light-accent p-4 rounded-lg shadow-sm">
                     <img
                       src={item?.petImage}
@@ -169,8 +170,8 @@ const FinalPetDetails = () => {
                         Price: ${parseFloat(item?.petPrice).toFixed(2)}
                       </p>
                     </div>
-                    <button className="p-2 text-red-500 hover:text-red-700 transition-colors">
-                      <RxCross2 className="text-2xl font-bold" />
+                    <button  className="p-2 text-red-500 hover:text-red-700 transition-colors">
+                      <FaTrashAlt className="text-2xl font-bold" />
                     </button>
                   </div>
                 </div>

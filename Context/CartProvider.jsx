@@ -36,7 +36,6 @@ const CartProvider = ({ children }) => {
     setCart(res.data);
     //item already checking
     if (res.data.status === "exists") {
-
       return Swal.fire({
         title: "Already in Cart!",
         text: `Item is already in your cart.`,
@@ -58,7 +57,7 @@ const CartProvider = ({ children }) => {
 
     setIsDrawerOpen(true);
   };
-
+ 
   return (
     <CartContext
       value={{
@@ -67,6 +66,7 @@ const CartProvider = ({ children }) => {
         isDrawerOpen,
         toggleDrawer,
         addToCart,
+        
       }}
     >
       {children}
