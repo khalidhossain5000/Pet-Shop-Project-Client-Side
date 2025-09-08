@@ -10,7 +10,7 @@ import { FaTrashAlt } from "react-icons/fa";
 const FinalPetDetails = () => {
   const axiosInstance = useAxios();
   const { id } = useParams();
-  const { isDrawerOpen, toggleDrawer, addToCart, cart } = useCart();
+  const { isDrawerOpen, toggleDrawer, handleAddToCart, cart } = useCart();
   const items = cart?.items;
   //getting the subtotal value of the cart
   const subtotal = items?.reduce((total, item) => {
@@ -25,8 +25,8 @@ const FinalPetDetails = () => {
     },
   });
   if (isLoading) return <Loading />;
-  const singlePetData = pets.find((pet) => pet._id === id);
-console.log(singlePetData);
+  const singlePetData = pets?.find((pet) => pet._id === id);
+console.log('thi sis is ',singlePetData);
   return (
     <div className="py-12 lg:pt-22">
       <div className="max-w-4xl mx-auto  bg-light-secondary rounded-2xl shadow-lg p-8 font-secondary">
@@ -85,7 +85,7 @@ console.log(singlePetData);
               <div className="mt-6 flex gap-4">
                 <button
                   onClick={() => {
-                    addToCart(singlePetData);
+                    handleAddToCart(singlePetData);
                   }}
                   className="px-6 py-3 rounded-2xl font-semibold shadow-md transition-all duration-300 bg-[var(--color-light-accent)] text-[var(--color-light-text)] hover:bg-yellow-400 hover:scale-105 cursor-pointer"
                 >
