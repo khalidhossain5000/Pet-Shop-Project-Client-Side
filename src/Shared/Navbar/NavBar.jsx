@@ -7,13 +7,13 @@ import toast from "react-hot-toast";
 import useRole from "../../../Hooks/useRole";
 import Loading from "../Loading/Loading";
 import { FaCartShopping } from "react-icons/fa6";
-import { useCart } from "../../../Hooks/useCart";
+
 
 const NavBar = () => {
   const { user, logoutUser } = useAuth();
   const { role, isLoading } = useRole();
-const {cart}=useCart()
-console.log("cart from nav",cart)
+
+
   if (isLoading) return <Loading />;
 
   const handleLogout = () => {

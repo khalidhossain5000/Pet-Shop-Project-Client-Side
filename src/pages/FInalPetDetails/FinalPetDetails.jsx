@@ -17,7 +17,7 @@ const {addToCart}=useCart()
   });
   if (isLoading) return <Loading />;
   const singlePetData = pets?.find((pet) => pet._id === id);
-console.log('thi sis is ',singlePetData);
+
   return (
     <div className="py-12 lg:pt-22">
       <div className="max-w-4xl mx-auto  bg-light-secondary rounded-2xl shadow-lg p-8 font-secondary">
