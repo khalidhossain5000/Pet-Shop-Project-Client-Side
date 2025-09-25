@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useAuth from "../../../../Hooks/useAuth";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router";
+
 import SocialLogin from "../SocialLogin/SocialLogin";
 import useAxios from "../../../../Hooks/useAxios";
 const Register = () => {
@@ -24,7 +24,10 @@ const axiosInstance=useAxios()
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
-
+    
+    if(!profilePic) {
+      return toast.loading('Wait image uploading.....');
+    }
     createUser(email, password).then((result) => {
       const user = result.user;
        // data sending to the db starts
@@ -66,7 +69,7 @@ const axiosInstance=useAxios()
         });
 
       navigate(from);
-      console.log(result.user);
+      
     });
     console.log(name, profilePic);
   };
@@ -86,6 +89,7 @@ const axiosInstance=useAxios()
 
     setProfilePic(res.data.data.url);
   };
+  console.log('profiel pic',profilePic);
   return (
     <div className="flex justify-center px-4 py-10">
       <form
