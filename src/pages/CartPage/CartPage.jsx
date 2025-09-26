@@ -3,7 +3,7 @@ import { useCart } from "../../../Hooks/useCart";
 import { FaTrash } from "react-icons/fa";
 
 const CartPage = () => {
-  const { cartItems ,subTotalRounded} = useCart();
+  const { cartItems ,subTotalRounded,removeCart} = useCart();
   const allCartItems = cartItems.cartItemInfo;
   
 
@@ -68,7 +68,8 @@ const CartPage = () => {
                     </p>
                   </div>
                   <button
-                    className="text-[#111111] hover:text-[#FFDC26] transition"
+                    onClick={() => removeCart(item.petId)}
+                    className="text-[#111111] hover:text-[red] transition cursor-pointer"
                     title="Remove Item"
                   >
                     <FaTrash size={24} />
