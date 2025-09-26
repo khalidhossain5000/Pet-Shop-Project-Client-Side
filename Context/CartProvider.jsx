@@ -53,8 +53,9 @@ const CartProvider = ({ children }) => {
   const subTotalRounded = parseFloat(subTotal);
   
   const addToCart = (itemDetails) => {
-    const { _id, petName, petCategory, breed, size, price } = itemDetails;
+    const { _id, petName, petCategory, breed, size, price,petPic } = itemDetails;
 
+    console.log(itemDetails);
     // Check if item already exists in the cart
     const alreadyExists = cartItems?.cartItemInfo?.some(
       (item) => item.petId === _id
@@ -73,7 +74,7 @@ const CartProvider = ({ children }) => {
     }
 
     // If item doesn't exist, add it to cart
-    const newItem = { petId: _id, petName, petCategory, breed, size, price };
+    const newItem = { petId: _id, petName, petCategory, breed, size, price ,petPic};
 
     // Update cart state while preserving existing items
     const updatedCart = {
@@ -125,6 +126,7 @@ const CartProvider = ({ children }) => {
     isDrawerOpen,
     toggleDrawer,
     removeCart,
+    subTotalRounded
   };
 
   return (
