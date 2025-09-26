@@ -2,14 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { CartContext } from "./CartContext";
 import { useQuery } from "@tanstack/react-query";
-
 import Swal from "sweetalert2";
 import useAuth from "../Hooks/useAuth";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import CartSidebar from "../src/Shared/CartSidebar/CartSidebar";
 import Loading from "../src/Shared/Loading/Loading";
 // import toast from "react-hot-toast";
-
 const CartProvider = ({ children }) => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
@@ -20,13 +18,11 @@ const CartProvider = ({ children }) => {
     cartItemInfo: [],
   });
 
-  
   // Toggle cart sidebar
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const toggleDrawer = (open) => {
     setIsDrawerOpen(open);
   };
-
 
   const { data, isLoading } = useQuery({
     queryKey: ["cart", user?.email],
@@ -36,26 +32,21 @@ const CartProvider = ({ children }) => {
     },
     enabled: !!user?.email, // fetch only if user exists
   });
-  
 
-useEffect(() => {
-  if (data && data.length > 0) {
-    const mergedItems = data.flatMap((item) => item.cartItemInfo);
-    setCartItems({
-      userEmail: user?.email || "",
-      cartItemInfo: mergedItems,
-    });
-  }
-}, [data, user?.email]);
-
-
+  useEffect(() => {
+    if (data && data.length > 0) {
+      const mergedItems = data.flatMap((item) => item.cartItemInfo);
+      setCartItems({
+        userEmail: user?.email || "",
+        cartItemInfo: mergedItems,
+      });
+    }
+  }, [data, user?.email]);
 
   if (isLoading) return <Loading />;
-  console.log("fethc art data", data?.cartItemInfo,data);
-
 
   const addToCart = (itemDetails) => {
-    const { _id, petName, petCategory, breed, size, price } =itemDetails;
+    const { _id, petName, petCategory, breed, size, price } = itemDetails;
 
     // Check if item already exists in the cart
     const alreadyExists = cartItems?.cartItemInfo?.some(
@@ -76,7 +67,7 @@ useEffect(() => {
 
     // If item doesn't exist, add it to cart
     const newItem = { petId: _id, petName, petCategory, breed, size, price };
- 
+
     // Update cart state while preserving existing items
     const updatedCart = {
       userEmail: user?.email,
@@ -91,12 +82,12 @@ useEffect(() => {
         title: "Item Added to Cart",
         text: "You have successfully added this item to your cart!",
         confirmButtonText: "OK",
+      }).then(() => {
+        // Open sidebar
+        setOpen(true);
       });
-      alert("sucsss");
       console.log(res);
     });
-    // Open sidebar
-    setOpen(true);
   };
 
   const cartInfo = {
