@@ -7,13 +7,13 @@ import toast from "react-hot-toast";
 import useRole from "../../../Hooks/useRole";
 import Loading from "../Loading/Loading";
 import { FaCartShopping } from "react-icons/fa6";
-
+import { useCart } from "../../../Hooks/useCart";
 
 const NavBar = () => {
   const { user, logoutUser } = useAuth();
   const { role, isLoading } = useRole();
-
-
+  const { cartItems } = useCart();
+  const cartCount=cartItems.cartItemInfo.length
   if (isLoading) return <Loading />;
 
   const handleLogout = () => {
@@ -57,7 +57,7 @@ const NavBar = () => {
       )}
     </>
   );
-  
+
   return (
     <div className="bg-light-secondary z-[999] relative">
       {/* top menu start  */}
@@ -78,11 +78,13 @@ const NavBar = () => {
           </ul>
           <div className="relative inline-block">
             {/* Cart Icon */}
-            <Link to='/cart'><FaCartShopping className="text-light-text text-3xl" /></Link>
+            <Link to="/cart">
+              <FaCartShopping className="text-light-text text-3xl" />
+            </Link>
 
             {/* Cart Count Indicator */}
             <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
-             3
+              {cartCount}
             </span>
           </div>
         </div>
