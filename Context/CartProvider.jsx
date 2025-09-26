@@ -1,7 +1,7 @@
 // CartProvider.jsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CartContext } from "./CartContext";
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
 import Swal from "sweetalert2";
 import useAuth from "../Hooks/useAuth";
@@ -19,6 +19,8 @@ const CartProvider = ({ children }) => {
     userEmail: user?.email || "",
     cartItemInfo: [],
   });
+
+  
   // Toggle cart sidebar
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const toggleDrawer = (open) => {
@@ -26,32 +28,40 @@ const CartProvider = ({ children }) => {
   };
 
 
-
   const { data, isLoading } = useQuery({
-    queryKey: ['cart', user?.email],
+    queryKey: ["cart", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/carts?email=${user?.email}`);
       return res.data;
     },
     enabled: !!user?.email, // fetch only if user exists
-    onSuccess: (data) => {
-      setCartItems({
-        userEmail: user?.email,
-        cartItemInfo: data.cartItemInfo,
-      });
-    },
   });
-console.log(user?.email)
-  if(isLoading) return <Loading/>
-  console.log('fethc art data',data)
+  
+
+useEffect(() => {
+  if (data && data.length > 0) {
+    const mergedItems = data.flatMap((item) => item.cartItemInfo);
+    setCartItems({
+      userEmail: user?.email || "",
+      cartItemInfo: mergedItems,
+    });
+  }
+}, [data, user?.email]);
+
+
+
+  if (isLoading) return <Loading />;
+  console.log("fethc art data", data?.cartItemInfo,data);
+
+
   const addToCart = (itemDetails) => {
-    const { _id, petName, petCategory, breed, size, price } = itemDetails;
+    const { _id, petName, petCategory, breed, size, price } =itemDetails;
 
     // Check if item already exists in the cart
     const alreadyExists = cartItems?.cartItemInfo?.some(
       (item) => item.petId === _id
     );
-   
+
     if (alreadyExists) {
       // Show warning if item already exists
       return Swal.fire({
@@ -65,15 +75,16 @@ console.log(user?.email)
     }
 
     // If item doesn't exist, add it to cart
-    const newItem = { petId:_id, petName, petCategory, breed, size, price };
-
+    const newItem = { petId: _id, petName, petCategory, breed, size, price };
+ 
     // Update cart state while preserving existing items
-    setCartItems((prevCart) => ({
-      userEmail: user?.email || "",
-      cartItemInfo: [...prevCart.cartItemInfo, newItem],
-    }));
-    console.log('this is cart after adding item',cartItems)
-    axiosSecure.post("/carts", cartItems).then((res) => {
+    const updatedCart = {
+      userEmail: user?.email,
+      cartItemInfo: [...cartItems.cartItemInfo, newItem],
+    };
+    // State update
+    setCartItems(updatedCart);
+    axiosSecure.post("/carts", updatedCart).then((res) => {
       // Show success message
       Swal.fire({
         icon: "success",
@@ -81,13 +92,12 @@ console.log(user?.email)
         text: "You have successfully added this item to your cart!",
         confirmButtonText: "OK",
       });
-alert("sucsss")
+      alert("sucsss");
       console.log(res);
     });
     // Open sidebar
     setOpen(true);
   };
-
 
   const cartInfo = {
     addToCart,
@@ -99,7 +109,7 @@ alert("sucsss")
 
   return (
     <>
-    <CartContext.Provider value={cartInfo}>{children}</CartContext.Provider>
+      <CartContext.Provider value={cartInfo}>{children}</CartContext.Provider>
 
       {/* CartSidebar rendered here */}
       <CartSidebar
@@ -107,8 +117,6 @@ alert("sucsss")
         onClose={() => setOpen(false)}
         cartItems={cartItems}
       />
-
-
     </>
   );
 };

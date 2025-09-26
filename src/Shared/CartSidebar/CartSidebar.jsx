@@ -29,8 +29,8 @@ const CartSidebar = ({ open, onClose, cartItems }) => {
 
         {/* Cart Items List */}
         <List sx={{ flexGrow: 1 }}>
-          {cartItems?.cartItemInfo?.map((item) => (
-            <ListItem key={item._id} sx={{ flexDirection: "column", alignItems: "flex-start" }}>
+          {cartItems?.cartItemInfo?.map((item,i) => (
+            <ListItem key={i} sx={{ flexDirection: "column", alignItems: "flex-start" }}>
               <ListItemText
                 primary={item.petName}
                 secondary={`Category: ${item.petCategory} | Breed: ${item.breed} | Size: ${item.size}`}
