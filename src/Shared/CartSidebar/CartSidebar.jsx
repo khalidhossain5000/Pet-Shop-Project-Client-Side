@@ -7,10 +7,10 @@ import {
   Divider,
   List,
   ListItem,
-  ListItemText
+  ListItemText,
 } from "@mui/material";
 
-const CartSidebar = ({ open, onClose, cartItems }) => {
+const CartSidebar = ({ open, onClose, cartItems, subTotal }) => {
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
       <Box
@@ -29,8 +29,11 @@ const CartSidebar = ({ open, onClose, cartItems }) => {
 
         {/* Cart Items List */}
         <List sx={{ flexGrow: 1 }}>
-          {cartItems?.cartItemInfo?.map((item,i) => (
-            <ListItem key={i} sx={{ flexDirection: "column", alignItems: "flex-start" }}>
+          {cartItems?.cartItemInfo?.map((item, i) => (
+            <ListItem
+              key={i}
+              sx={{ flexDirection: "column", alignItems: "flex-start" }}
+            >
               <ListItemText
                 primary={item.petName}
                 secondary={`Category: ${item.petCategory} | Breed: ${item.breed} | Size: ${item.size}`}
@@ -45,14 +48,22 @@ const CartSidebar = ({ open, onClose, cartItems }) => {
 
         {/* Checkout Button at bottom */}
         <Box sx={{ mt: "auto" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            fullWidth
+          <h2 className="text-center  mb-6  text-light-text text-3xl font-primary ">
+            Subtotal : ${subTotal}
+          </h2>
+          <button
+            className="border-none bg-light-accent xl:py-[10px] xl:px-[30px] rounded-lg text-light-text font-secondary xl:text-xl py-1 px-3  cursor-pointer w-full"
             onClick={() => alert("Checkout clicked")}
           >
             Checkout
-          </Button>
+          </button>
+
+          <button
+            className="mt-6 border-none bg-light-text xl:py-[10px] xl:px-[30px] rounded-lg text-light-secondary font-secondary xl:text-xl py-1 px-3  cursor-pointer w-full"
+            onClick={() => alert("Checkout clicked")}
+          >
+            View Cart
+          </button>
         </Box>
       </Box>
     </Drawer>

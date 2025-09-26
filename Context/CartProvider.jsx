@@ -45,6 +45,11 @@ const CartProvider = ({ children }) => {
 
   if (isLoading) return <Loading />;
 
+//sub total calculation
+const subTotal=cartItems?.cartItemInfo?.reduce((total,item)=>total+parseFloat(item.price),0).toFixed(2)
+
+const subTotalRounded = parseFloat(subTotal);
+console.log(subTotalRounded)
   const addToCart = (itemDetails) => {
     const { _id, petName, petCategory, breed, size, price } = itemDetails;
 
@@ -107,6 +112,7 @@ const CartProvider = ({ children }) => {
         open={open}
         onClose={() => setOpen(false)}
         cartItems={cartItems}
+        subTotal={subTotalRounded}
       />
     </>
   );
