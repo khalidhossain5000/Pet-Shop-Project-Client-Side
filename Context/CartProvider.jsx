@@ -51,7 +51,7 @@ const CartProvider = ({ children }) => {
     .toFixed(2);
 
   const subTotalRounded = parseFloat(subTotal);
-  console.log(subTotalRounded);
+  
   const addToCart = (itemDetails) => {
     const { _id, petName, petCategory, breed, size, price } = itemDetails;
 
@@ -102,7 +102,7 @@ const CartProvider = ({ children }) => {
     try {
       const res = await axiosSecure.delete(`/carts/${user?.email}/${petId}`);
       if (res.data.modifiedCount > 0) {
-        // 1) UI state থেকে সরিয়ে দাও
+        // remove from ui state in the sidebar
         setCartItems((prev) => ({
           ...prev,
           cartItemInfo: prev.cartItemInfo.filter(
@@ -110,8 +110,7 @@ const CartProvider = ({ children }) => {
           ),
         }));
 
-        // 2) Success alert দাও
-
+        //Success alert
         toast.success("Item removed from cart!");
       }
     } catch (error) {
