@@ -14,3 +14,7 @@
     --color-light-text: #111111;
  
   }
+
+  .swal-top-z {
+  z-index: 99999 !important;
+}

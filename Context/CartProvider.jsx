@@ -7,7 +7,7 @@ import useAuth from "../Hooks/useAuth";
 import useAxiosSecure from "../Hooks/useAxiosSecure";
 import CartSidebar from "../src/Shared/CartSidebar/CartSidebar";
 import Loading from "../src/Shared/Loading/Loading";
-// import toast from "react-hot-toast";
+import toast from "react-hot-toast";
 const CartProvider = ({ children }) => {
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
@@ -45,11 +45,13 @@ const CartProvider = ({ children }) => {
 
   if (isLoading) return <Loading />;
 
-//sub total calculation
-const subTotal=cartItems?.cartItemInfo?.reduce((total,item)=>total+parseFloat(item.price),0).toFixed(2)
+  //sub total calculation
+  const subTotal = cartItems?.cartItemInfo
+    ?.reduce((total, item) => total + parseFloat(item.price), 0)
+    .toFixed(2);
 
-const subTotalRounded = parseFloat(subTotal);
-console.log(subTotalRounded)
+  const subTotalRounded = parseFloat(subTotal);
+  console.log(subTotalRounded);
   const addToCart = (itemDetails) => {
     const { _id, petName, petCategory, breed, size, price } = itemDetails;
 
@@ -95,12 +97,35 @@ console.log(subTotalRounded)
     });
   };
 
+  //remove cart item from state and db function start here
+  const removeCart = async (petId) => {
+    try {
+      const res = await axiosSecure.delete(`/carts/${user?.email}/${petId}`);
+      if (res.data.modifiedCount > 0) {
+        // 1) UI state থেকে সরিয়ে দাও
+        setCartItems((prev) => ({
+          ...prev,
+          cartItemInfo: prev.cartItemInfo.filter(
+            (item) => item.petId !== petId
+          ),
+        }));
+
+        // 2) Success alert দাও
+
+        toast.success("Item removed from cart!");
+      }
+    } catch (error) {
+      console.error("Delete error", error);
+    }
+  };
+
   const cartInfo = {
     addToCart,
     cartItems,
     setCartItems,
     isDrawerOpen,
     toggleDrawer,
+    removeCart,
   };
 
   return (
@@ -113,6 +138,7 @@ console.log(subTotalRounded)
         onClose={() => setOpen(false)}
         cartItems={cartItems}
         subTotal={subTotalRounded}
+        removeCart={removeCart}
       />
     </>
   );

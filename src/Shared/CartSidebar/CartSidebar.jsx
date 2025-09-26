@@ -9,8 +9,9 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
+import { ImCross } from "react-icons/im";
 
-const CartSidebar = ({ open, onClose, cartItems, subTotal }) => {
+const CartSidebar = ({ open, onClose, cartItems, subTotal,removeCart }) => {
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
       <Box
@@ -30,10 +31,13 @@ const CartSidebar = ({ open, onClose, cartItems, subTotal }) => {
         {/* Cart Items List */}
         <List sx={{ flexGrow: 1 }}>
           {cartItems?.cartItemInfo?.map((item, i) => (
+            
             <ListItem
               key={i}
               sx={{ flexDirection: "column", alignItems: "flex-start" }}
-            >
+            ><div className='text-red-600 absolute top-0 right-0'>
+                <button onClick={()=>removeCart(item.petId)} className="cursor-pointer"><ImCross /></button>
+              </div>
               <ListItemText
                 primary={item.petName}
                 secondary={`Category: ${item.petCategory} | Breed: ${item.breed} | Size: ${item.size}`}
@@ -42,10 +46,14 @@ const CartSidebar = ({ open, onClose, cartItems, subTotal }) => {
                 ${item.price}
               </Typography>
               <Divider sx={{ width: "100%", mt: 1, mb: 1 }} />
+              
             </ListItem>
           ))}
         </List>
+          <div>
+            
 
+          </div>
         {/* Checkout Button at bottom */}
         <Box sx={{ mt: "auto" }}>
           <h2 className="text-center  mb-6  text-light-text text-3xl font-primary ">
