@@ -1,5 +1,5 @@
-import React from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 import {
   Table,
@@ -22,12 +22,13 @@ import Loading from "../../../Shared/Loading/Loading.jsx";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure.jsx";
 import OrderStatus from "../OrderStausComponent/OrderStatus.jsx";
+import ItemModal from "../ItemDetailsModalComponent/ItemModal.jsx";
 
 const Orders = () => {
   const axiosSecure = useAxiosSecure();
-  const queryClient = useQueryClient();
+//   const queryClient = useQueryClient();
 
-  console.log(queryClient);
+  const [openModal, setOpenModal] = useState(false);
 
   const {
     data: orders = [],
@@ -41,8 +42,6 @@ const Orders = () => {
       return res.data || [];
     },
   });
-
-  
 
   //delete user starts
   //   const { mutateAsync: deleteUserAsync, isPending: isDeleting } = useMutation({
@@ -97,36 +96,54 @@ const Orders = () => {
                 <TableCell>{order.orderDate}</TableCell>
 
                 <TableCell>
-                  {order.paymentItem.map((item, index) => (
-                    <div key={index}>
-                      {item.petName} ({item.petCategory}) - {item.breed} : $
-                      {item.price}
-                    </div>
-                  ))}
+                  <button 
+                  onClick={() => setOpenModal(true)}
+                  className="text-sm xl:text-xl px-6 py-2 bg-gradient-to-r from-[#FF6B6B] to-[#FF8C42] text-light-text xl:font-bold rounded-sm shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer">
+                    View Items
+                  </button>
+                  <ItemModal
+  open={openModal} 
+  onClose={() => setOpenModal(false)} 
+  order={order} 
+/>
                 </TableCell>
                 <TableCell>{order.paymentMethod.join(", ")}</TableCell>
 
                 <TableCell>{order.paymentStatus}</TableCell>
-                <TableCell>{order.orderStatus}</TableCell>
+                <TableCell>
+                  <span
+                    className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                      order.orderStatus === "Received"
+                        ? "bg-gray-200 text-gray-800"
+                        : order.orderStatus === "Processing"
+                        ? "bg-yellow-200 text-yellow-800"
+                        : order.orderStatus === "Shipped"
+                        ? "bg-blue-200 text-blue-800"
+                        : order.orderStatus === "Delivered"
+                        ? "bg-green-200 text-green-800"
+                        : "bg-gray-100 text-gray-600"
+                    }`}
+                  >
+                    {order.orderStatus}
+                  </span>
+                </TableCell>
 
                 <TableCell align="center">
                   <Box
                     sx={{ display: "flex", gap: 1, justifyContent: "center" }}
-                  >
-                    
-                  </Box>
+                  ></Box>
                 </TableCell>
-                 <TableCell>
-                    <OrderStatus 
+                <TableCell>
+                  <OrderStatus
                     currentStatus={order.orderStatus}
                     orderId={order._id}
-                    ></OrderStatus>
-                    
-                    </TableCell>
+                  ></OrderStatus>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
+        
       </TableContainer>
     </div>
   );
