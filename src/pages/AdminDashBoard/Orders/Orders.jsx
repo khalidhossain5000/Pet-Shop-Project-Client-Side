@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useReactToPrint } from "react-to-print";
+
 import { useQuery } from "@tanstack/react-query";
 
 import {
@@ -23,12 +24,23 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure.jsx";
 import OrderStatus from "../OrderStausComponent/OrderStatus.jsx";
 import ItemModal from "../ItemDetailsModalComponent/ItemModal.jsx";
+import { useRef, useState } from "react";
+
+import Invoice from "./Invoice.jsx";
 
 const Orders = () => {
   const axiosSecure = useAxiosSecure();
   //   const queryClient = useQueryClient();
-
+  
   const [openModal, setOpenModal] = useState(false);
+
+const invoiceRef = useRef();
+
+
+    const handlePrint = useReactToPrint({
+    contentRef: invoiceRef,
+    documentTitle: `Invoice-$1`, // PDF এর নাম
+  });
 
   const {
     data: orders = [],
@@ -139,17 +151,25 @@ const Orders = () => {
                     currentStatus={order.orderStatus}
                     orderId={order._id}
                   ></OrderStatus>
-                  <button
-                    className="bg-light-accent px-6 py-1 text-sm  lg:font-medium text-light-text rounded-md shadow-md hover:bg-accent-hover transition-colors duration-300 cursor-pointer mt-3"
-                  >
-                    Print Receipt
-                  </button>
+
+                  {/* Print Button */}
+      <button
+        onClick={handlePrint}
+        className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Print / Download Invoice
+      </button>
+                
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      {/* Printable Area */}
+      <div ref={invoiceRef}>
+        <Invoice order={orders} />
+      </div>
     </div>
   );
 };
