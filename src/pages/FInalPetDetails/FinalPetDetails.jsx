@@ -1,13 +1,17 @@
 import React from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useAxios from "../../../Hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../Shared/Loading/Loading";
 import { useCart } from "../../../Hooks/useCart";
+import CartSidebar from "../../Shared/CartSidebar/CartSidebar";
 const FinalPetDetails = () => {
   const axiosInstance = useAxios();
   const { id } = useParams();
-const {addToCart}=useCart()
+const {addToCart,open,setOpen,cartItems,subTotalRounded,removeCart}=useCart()
+
+const navigate=useNavigate()
+
   const { data: pets, isLoading } = useQuery({
     queryKey: ["pets"],
     queryFn: async () => {
@@ -107,7 +111,16 @@ const {addToCart}=useCart()
           </span>
         </div>
       </div>
- 
+ {
+  open && <CartSidebar
+        open={open}
+        onClose={() => setOpen(false)}
+        cartItems={cartItems}
+        subTotal={subTotalRounded}
+        removeCart={removeCart}
+        navigate={navigate}
+      />
+ }
     </div>
   );
 };

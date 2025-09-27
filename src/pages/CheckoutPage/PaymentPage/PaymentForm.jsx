@@ -11,7 +11,7 @@ const PaymentForm = () => {
   const [error, setError] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-  const { amountInCents, subTotalRounded, cartItems } = useCart();
+  const { amountInCents, subTotalRounded, cartItems,setCartItems } = useCart();
   const axiosSecure = useAxiosSecure();
   const user = useAuth();
   const handleSubmit = async (e) => {
@@ -54,7 +54,7 @@ const PaymentForm = () => {
       // step-4 mark parcel paid also create payment history
       const paymentData = {
         email: user.email,
-        amount: amountInCents,
+        amount: subTotalRounded,
         transactionId: transactionId,
         paymentMethod: paymentIntent.payment_method_types,
         paymentItem: cartItems.cartItemInfo,
@@ -77,6 +77,8 @@ const PaymentForm = () => {
           },
           confirmButtonText: "Ok",
         });
+        // Clear cart items after successful payment
+        setCartItems()
       }
     }
   };

@@ -128,21 +128,16 @@ const CartProvider = ({ children }) => {
     toggleDrawer,
     removeCart,
     subTotalRounded,
-    amountInCents
+    amountInCents,
+    open,
+    setOpen
   };
 
   return (
     <>
       <CartContext.Provider value={cartInfo}>{children}</CartContext.Provider>
 
-      {/* CartSidebar rendered here */}
-      <CartSidebar
-        open={open}
-        onClose={() => setOpen(false)}
-        cartItems={cartItems}
-        subTotal={subTotalRounded}
-        removeCart={removeCart}
-      />
+     
     </>
   );
 };

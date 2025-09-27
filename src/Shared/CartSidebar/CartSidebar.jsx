@@ -11,7 +11,9 @@ import {
 } from "@mui/material";
 import { ImCross } from "react-icons/im";
 
-const CartSidebar = ({ open, onClose, cartItems, subTotal,removeCart }) => {
+
+const CartSidebar = ({ open, onClose, cartItems, subTotal, removeCart,navigate }) => {
+
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
       <Box
@@ -31,12 +33,17 @@ const CartSidebar = ({ open, onClose, cartItems, subTotal,removeCart }) => {
         {/* Cart Items List */}
         <List sx={{ flexGrow: 1 }}>
           {cartItems?.cartItemInfo?.map((item, i) => (
-            
             <ListItem
               key={i}
               sx={{ flexDirection: "column", alignItems: "flex-start" }}
-            ><div className='text-red-600 absolute top-0 right-0'>
-                <button onClick={()=>removeCart(item.petId)} className="cursor-pointer"><ImCross /></button>
+            >
+              <div className="text-red-600 absolute top-0 right-0">
+                <button
+                  onClick={() => removeCart(item.petId)}
+                  className="cursor-pointer"
+                >
+                  <ImCross />
+                </button>
               </div>
               <ListItemText
                 primary={item.petName}
@@ -46,29 +53,26 @@ const CartSidebar = ({ open, onClose, cartItems, subTotal,removeCart }) => {
                 ${item.price}
               </Typography>
               <Divider sx={{ width: "100%", mt: 1, mb: 1 }} />
-              
             </ListItem>
           ))}
         </List>
-          <div>
-            
-
-          </div>
+        <div></div>
         {/* Checkout Button at bottom */}
         <Box sx={{ mt: "auto" }}>
           <h2 className="text-center  mb-6  text-light-text text-3xl font-primary ">
             Subtotal : ${subTotal}
           </h2>
+
           <button
+            onClick={() => navigate("/payment")}
             className="border-none bg-light-accent xl:py-[10px] xl:px-[30px] rounded-lg text-light-text font-secondary xl:text-xl py-1 px-3  cursor-pointer w-full"
-            onClick={() => alert("Checkout clicked")}
           >
             Checkout
           </button>
 
           <button
+            onClick={() => navigate("/cart")}
             className="mt-6 border-none bg-light-text xl:py-[10px] xl:px-[30px] rounded-lg text-light-secondary font-secondary xl:text-xl py-1 px-3  cursor-pointer w-full"
-            onClick={() => alert("Checkout clicked")}
           >
             View Cart
           </button>
