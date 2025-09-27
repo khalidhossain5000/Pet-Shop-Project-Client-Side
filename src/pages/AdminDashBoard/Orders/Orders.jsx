@@ -26,7 +26,7 @@ import ItemModal from "../ItemDetailsModalComponent/ItemModal.jsx";
 
 const Orders = () => {
   const axiosSecure = useAxiosSecure();
-//   const queryClient = useQueryClient();
+  //   const queryClient = useQueryClient();
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -96,16 +96,17 @@ const Orders = () => {
                 <TableCell>{order.orderDate}</TableCell>
 
                 <TableCell>
-                  <button 
-                  onClick={() => setOpenModal(true)}
-                  className="text-sm xl:text-xl px-6 py-2 bg-gradient-to-r from-[#FF6B6B] to-[#FF8C42] text-light-text xl:font-bold rounded-sm shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer">
+                  <button
+                    onClick={() => setOpenModal(true)}
+                    className="text-sm xl:text-xl px-6 py-2 bg-gradient-to-r from-[#FF6B6B] to-[#FF8C42] text-light-text xl:font-bold rounded-sm shadow-lg hover:scale-105 transition-transform duration-300 cursor-pointer"
+                  >
                     View Items
                   </button>
                   <ItemModal
-  open={openModal} 
-  onClose={() => setOpenModal(false)} 
-  order={order} 
-/>
+                    open={openModal}
+                    onClose={() => setOpenModal(false)}
+                    order={order}
+                  />
                 </TableCell>
                 <TableCell>{order.paymentMethod.join(", ")}</TableCell>
 
@@ -138,12 +139,16 @@ const Orders = () => {
                     currentStatus={order.orderStatus}
                     orderId={order._id}
                   ></OrderStatus>
+                  <button
+                    className="bg-light-accent px-6 py-1 text-sm  lg:font-medium text-light-text rounded-md shadow-md hover:bg-accent-hover transition-colors duration-300 cursor-pointer mt-3"
+                  >
+                    Print Receipt
+                  </button>
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
-        
       </TableContainer>
     </div>
   );
