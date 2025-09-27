@@ -4,13 +4,14 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useCart } from "../../../../Hooks/useCart";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import useAuth from "../../../../Hooks/useAuth";
+import Swal from "sweetalert2";
 
 const PaymentForm = () => {
   const [processing, setProcessing] = useState(false);
-  const [error,setError]=useState("")
+  const [error, setError] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-  const { amountInCents,subTotalRounded } = useCart();
+  const { amountInCents, subTotalRounded, cartItems } = useCart();
   const axiosSecure = useAxiosSecure();
   const user = useAuth();
   const handleSubmit = async (e) => {
@@ -38,30 +39,48 @@ const PaymentForm = () => {
           },
         },
       }
-    )
-     if (error) {
-        setError(error);
-        setProcessing(false);
-        return;
-      }
+    );
+    if (error) {
+      setError(error);
+      setProcessing(false);
+      return;
+    }
 
     if (paymentIntent.status === "succeeded") {
-        setError("");
-        setProcessing(false);
-        //PAYMENT INFO SENDING TO THE DB START
-        const transactionId = paymentIntent.id;
-        // step-4 mark parcel paid also create payment history
-        // const paymentData = {
-        //   premiumDuration: duration,
-        //   email: user.email,
-        //   amount,
-        //   transactionId: transactionId,
-        //   paymentMethod: paymentIntent.payment_method_types,
-        // };
-        console.log(transactionId,error)
+      setError("");
+      setProcessing(false);
+      //PAYMENT INFO SENDING TO THE DB START
+      const transactionId = paymentIntent.id;
+      // step-4 mark parcel paid also create payment history
+      const paymentData = {
+        email: user.email,
+        amount: amountInCents,
+        transactionId: transactionId,
+        paymentMethod: paymentIntent.payment_method_types,
+        paymentItem: cartItems.cartItemInfo,
+      };
+      const paymentRes = await axiosSecure.post("/payments", paymentData);
+      if (paymentRes.data.insertedId) {
+        // Show SweetAlert with transaction ID
+        await Swal.fire({
+          icon: "success",
+          title: "Payment Successful!",
+          html: `<strong>Transaction ID:</strong> <code>${transactionId}</code>`,
+          buttonsStyling: false,
+          color: "#000000",
+          customClass: {
+            popup: "premium-bg",
+            confirmButton:
+              "bg-gradient-to-r from-yellow-500 via-yellow-500 to-yellow-600 hover:bg-yellow-500  text-black font-semibold px-6 py-2 rounded-sm shadow-md  cursor-pointer",
+            cancelButton:
+              "bg-yellow-600 ml-3 text-xl text-black cursor-pointer hover:bg-yellow-500 font-bold px-6 py-2 rounded-xl",
+          },
+          confirmButtonText: "Ok",
+        });
+      }
     }
   };
-  console.log('this is error',error)
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
@@ -96,6 +115,9 @@ const PaymentForm = () => {
       >
         {processing ? "Processing..." : `Pay Now $${subTotalRounded}`}
       </button>
+      {error && (
+        <p className="text-center text-sm text-red-600 font-medium">{error}</p>
+      )}
     </form>
   );
 };
