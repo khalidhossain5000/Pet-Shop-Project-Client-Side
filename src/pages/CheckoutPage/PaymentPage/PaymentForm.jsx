@@ -11,9 +11,11 @@ const PaymentForm = () => {
   const [error, setError] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-  const { amountInCents, subTotalRounded, cartItems,setCartItems } = useCart();
+  const { amountInCents, subTotalRounded, cartItems, setCartItems } = useCart();
   const axiosSecure = useAxiosSecure();
-  const user = useAuth();
+  const {user} = useAuth();
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!stripe || !elements) return;
@@ -53,14 +55,24 @@ const PaymentForm = () => {
       const transactionId = paymentIntent.id;
       // step-4 mark parcel paid also create payment history
       const paymentData = {
-        email: user.email,
+        email: user?.email || "N/A",
         amount: subTotalRounded,
         transactionId: transactionId,
         paymentMethod: paymentIntent.payment_method_types,
         paymentItem: cartItems.cartItemInfo,
-        paymentStatus:'Paid',
-        orderDate: new Date().toLocaleString("en-US", { timeZone: "Asia/Dhaka", weekday: "short", month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "numeric", second: "numeric", hour12: true }),
-        orderStatus:'Recieved',
+        paymentStatus: "Paid",
+        orderDate: new Date().toLocaleString("en-US", {
+          timeZone: "Asia/Dhaka",
+          weekday: "short",
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+          hour: "numeric",
+          minute: "numeric",
+          second: "numeric",
+          hour12: true,
+        }),
+        orderStatus: "Recieved",
       };
       const paymentRes = await axiosSecure.post("/payments", paymentData);
       if (paymentRes.data.insertedId) {
@@ -81,7 +93,10 @@ const PaymentForm = () => {
           confirmButtonText: "Ok",
         });
         // Clear cart items after successful payment
-        setCartItems()
+        setCartItems({
+          userEmail: user?.email || "",
+          cartItemInfo: [],
+        });
       }
     }
   };

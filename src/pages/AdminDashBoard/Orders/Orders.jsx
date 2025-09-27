@@ -1,6 +1,6 @@
 import React from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import useAxiosSecure from "../../../../Hooks/useAxiosSecure.jsx";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+
 import {
   Table,
   TableBody,
@@ -20,60 +20,39 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import PersonRemoveIcon from "@mui/icons-material/PersonRemove";
 import Loading from "../../../Shared/Loading/Loading.jsx";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure.jsx";
+import OrderStatus from "../OrderStausComponent/OrderStatus.jsx";
 
 const Orders = () => {
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
 
+  console.log(queryClient);
+
   const {
-    data: users = [],
+    data: orders = [],
     isLoading,
     isError,
     error,
   } = useQuery({
-    queryKey: ["admin-users"],
+    queryKey: ["admin-orders"],
     queryFn: async () => {
-      const res = await axiosSecure.get("/admin/users");
+      const res = await axiosSecure.get("/payments/orders");
       return res.data || [];
     },
   });
 
-  //make admin starts
-  const { mutateAsync: makeAdminAsync, isPending: isMakingAdmin } = useMutation(
-    {
-      mutationFn: async (userId) => {
-        await axiosSecure.patch(`/admin/users/${userId}/make-admin`);
-      },
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["admin-users"] });
-        Swal.fire("Success", "User role updated to admin.", "success");
-      },
-    }
-  );
-  //make admin ends
-
-  //remove admin starts
-  const { mutateAsync: removeAdminAsync, isPending: isRemovingAdmin } =
-    useMutation({
-      mutationFn: async (userId) => {
-        await axiosSecure.patch(`/admin/users/${userId}/remove-admin`);
-      },
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ["admin-users"] }),
-          Swal.fire("Success", "User Removed From Admin", "success");
-      },
-    });
-  //remove admin ends
+  
 
   //delete user starts
-  const { mutateAsync: deleteUserAsync, isPending: isDeleting } = useMutation({
-    mutationFn: async (userId) => {
-      await axiosSecure.delete(`/admin/users/${userId}`);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin-users"] });
-    },
-  });
+  //   const { mutateAsync: deleteUserAsync, isPending: isDeleting } = useMutation({
+  //     mutationFn: async (userId) => {
+  //       await axiosSecure.delete(`/admin/users/${userId}`);
+  //     },
+  //     onSuccess: () => {
+  //       queryClient.invalidateQueries({ queryKey: ["admin-users"] });
+  //     },
+  //   });
   //delete user ends
 
   if (isLoading) return <Loading />;
@@ -97,86 +76,53 @@ const Orders = () => {
           <TableHead>
             <TableRow>
               <TableCell>SL</TableCell>
-              <TableCell>Avatar</TableCell>
-              <TableCell>Name</TableCell>
               <TableCell>Email</TableCell>
-              <TableCell>Role</TableCell>
+              <TableCell>Transaction ID</TableCell>
+              <TableCell>Price</TableCell>
+              <TableCell>Order Date</TableCell>
+              <TableCell>Order Items</TableCell>
+              <TableCell>Payment Method</TableCell>
+              <TableCell>Payment Status</TableCell>
+              <TableCell>Order Status</TableCell>
               <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user, index) => (
-              <TableRow key={user._id || user.id}>
+            {orders.map((order, index) => (
+              <TableRow key={index}>
                 <TableCell>{index + 1}</TableCell>
+                <TableCell>{order.email}</TableCell>
+                <TableCell>{order.transactionId}</TableCell>
+                <TableCell>{order.amount}</TableCell>
+                <TableCell>{order.orderDate}</TableCell>
+
                 <TableCell>
-                  <Avatar src={user.profilePic} alt={user.name || user.email} />
+                  {order.paymentItem.map((item, index) => (
+                    <div key={index}>
+                      {item.petName} ({item.petCategory}) - {item.breed} : $
+                      {item.price}
+                    </div>
+                  ))}
                 </TableCell>
-                <TableCell>{user.name || user.displayName || "—"}</TableCell>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.role || "user"}</TableCell>
+                <TableCell>{order.paymentMethod.join(", ")}</TableCell>
+
+                <TableCell>{order.paymentStatus}</TableCell>
+                <TableCell>{order.orderStatus}</TableCell>
+
                 <TableCell align="center">
                   <Box
                     sx={{ display: "flex", gap: 1, justifyContent: "center" }}
                   >
-                    <Button
-                      size="small"
-                      variant="contained"
-                      color="primary"
-                      startIcon={<AdminPanelSettingsIcon />}
-                      disabled={isMakingAdmin || user.role === "admin"}
-                      onClick={() => makeAdminAsync(user._id || user.id)}
-                    >
-                      Make Admin
-                    </Button>
-                    <Button
-                      size="small"
-                      variant="outlined"
-                      color="warning"
-                      startIcon={<PersonRemoveIcon />}
-                      disabled={isRemovingAdmin || user.role !== "admin"}
-                      onClick={() => removeAdminAsync(user._id || user.id)}
-                    >
-                      Remove Admin
-                    </Button>
-                    <IconButton
-                      aria-label="delete"
-                      color="error"
-                      disabled={isDeleting}
-                      onClick={async () => {
-                        const id = user._id || user.id;
-                        if (!id) return;
-
-                        const result = await Swal.fire({
-                          title: "Are you sure?",
-                          text: "This will permanently delete the user.",
-                          icon: "warning",
-                          showCancelButton: true,
-                          confirmButtonColor: "#d33",
-                          cancelButtonColor: "#3085d6",
-                          confirmButtonText: "Yes, delete",
-                        });
-                        if (result.isConfirmed) {
-                          try {
-                            await deleteUserAsync(id);
-                            Swal.fire(
-                              "Deleted!",
-                              "User has been deleted.",
-                              "success"
-                            );
-                          } catch (e) {
-                            Swal.fire(
-                              "Error",
-                              e?.message || "Failed to delete user.",
-                              "error"
-                            );
-                          }
-                        }
-                      }}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
+                    
                   </Box>
                 </TableCell>
+                 <TableCell>
+                    <OrderStatus 
+                    currentStatus={order.orderStatus}
+                    orderId={order._id}
+                    ></OrderStatus>
+                    
+                    </TableCell>
               </TableRow>
             ))}
           </TableBody>
