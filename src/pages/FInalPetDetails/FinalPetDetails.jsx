@@ -8,9 +8,10 @@ import CartSidebar from "../../Shared/CartSidebar/CartSidebar";
 const FinalPetDetails = () => {
   const axiosInstance = useAxios();
   const { id } = useParams();
-const {addToCart,open,setOpen,cartItems,subTotalRounded,removeCart}=useCart()
+  const { addToCart, open, setOpen, cartItems, subTotalRounded, removeCart } =
+    useCart();
 
-const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const { data: pets, isLoading } = useQuery({
     queryKey: ["pets"],
@@ -80,7 +81,7 @@ const navigate=useNavigate()
               <div className="mt-6 flex gap-4">
                 <button
                   onClick={() => {
-                   addToCart(singlePetData)
+                    addToCart(singlePetData);
                   }}
                   className="px-6 py-3 rounded-2xl font-semibold shadow-md transition-all duration-300 bg-[var(--color-light-accent)] text-[var(--color-light-text)] hover:bg-yellow-400 hover:scale-105 cursor-pointer"
                 >
@@ -111,16 +112,16 @@ const navigate=useNavigate()
           </span>
         </div>
       </div>
- {
-  open && <CartSidebar
-        open={open}
-        onClose={() => setOpen(false)}
-        cartItems={cartItems}
-        subTotal={subTotalRounded}
-        removeCart={removeCart}
-        navigate={navigate}
-      />
- }
+      {open && (
+        <CartSidebar
+          open={open}
+          onClose={() => setOpen(false)}
+          cartItems={cartItems}
+          subTotal={subTotalRounded}
+          removeCart={removeCart}
+          navigate={navigate}
+        />
+      )}
     </div>
   );
 };

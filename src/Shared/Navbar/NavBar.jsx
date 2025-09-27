@@ -13,7 +13,7 @@ const NavBar = () => {
   const { user, logoutUser } = useAuth();
   const { role, isLoading } = useRole();
   const { cartItems } = useCart();
-  const cartCount=cartItems.cartItemInfo.length
+  const cartCount=cartItems?.cartItemInfo?.length || 0
   if (isLoading) return <Loading />;
 
   const handleLogout = () => {

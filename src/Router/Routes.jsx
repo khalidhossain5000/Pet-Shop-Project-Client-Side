@@ -22,6 +22,7 @@ import FinalPetDetails from "../pages/FInalPetDetails/FinalPetDetails";
 import BreedDetails from "../pages/BreedsDetails/BreedDetails";
 import CartPage from "../pages/CartPage/CartPage";
 import Payment from "../pages/CheckoutPage/PaymentPage/Payment";
+import Orders from "../pages/AdminDashBoard/Orders/Orders";
 
 
 
@@ -131,6 +132,10 @@ export const router = createBrowserRouter([
       {
         path:'all-users',
         Component:AllUsers
+      },
+      {
+        path:'orders',
+        Component:Orders
       }
     ]
     

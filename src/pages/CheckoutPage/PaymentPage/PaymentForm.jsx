@@ -58,6 +58,9 @@ const PaymentForm = () => {
         transactionId: transactionId,
         paymentMethod: paymentIntent.payment_method_types,
         paymentItem: cartItems.cartItemInfo,
+        paymentStatus:'Paid',
+        orderDate: new Date().toLocaleString("en-US", { timeZone: "Asia/Dhaka", weekday: "short", month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "numeric", second: "numeric", hour12: true }),
+        orderStatus:'Recieved',
       };
       const paymentRes = await axiosSecure.post("/payments", paymentData);
       if (paymentRes.data.insertedId) {
