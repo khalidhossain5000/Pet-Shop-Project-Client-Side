@@ -80,7 +80,7 @@ export const router = createBrowserRouter([
         </PrivateRoute>
       },
       {
-        path:'paymenttest',
+        path:'payment',
         element:<Payment/>
       }
     ],

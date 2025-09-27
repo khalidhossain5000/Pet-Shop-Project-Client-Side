@@ -1,6 +1,7 @@
 import React from "react";
 import { useCart } from "../../../Hooks/useCart";
 import { FaTrash, FaShoppingCart, FaPaw, FaHeart } from "react-icons/fa";
+import { Link } from "react-router";
 
 const CartPage = () => {
   const { cartItems ,subTotalRounded,removeCart} = useCart();
@@ -97,9 +98,9 @@ const CartPage = () => {
                   <span>${subTotalRounded}</span>
                 </div>
               </div>
-              <button className="w-full mt-8 bg-[#FFDC26] text-[#111111] py-4 rounded-md font-semibold text-lg hover:bg-opacity-90 transition">
+              <Link to='/payment' className="w-full mt-8 bg-[#FFDC26] text-[#111111] py-4 rounded-md font-semibold text-lg hover:bg-opacity-90 transition">
                 Proceed to Checkout
-              </button>
+              </Link>
               <a
                 href="/shop"
                 className="block text-center mt-6 text-lg text-[#111111] hover:text-[#FFDC26] transition"

@@ -51,11 +51,12 @@ const CartProvider = ({ children }) => {
     .toFixed(2);
 
   const subTotalRounded = parseFloat(subTotal);
-  
+  //AMOUNT IN CENTES FOR STRIPE PAYMENT
+  const amountInCents = subTotalRounded * 100;
   const addToCart = (itemDetails) => {
     const { _id, petName, petCategory, breed, size, price,petPic } = itemDetails;
 
-    console.log(itemDetails);
+
     // Check if item already exists in the cart
     const alreadyExists = cartItems?.cartItemInfo?.some(
       (item) => item.petId === _id
@@ -126,7 +127,8 @@ const CartProvider = ({ children }) => {
     isDrawerOpen,
     toggleDrawer,
     removeCart,
-    subTotalRounded
+    subTotalRounded,
+    amountInCents
   };
 
   return (
