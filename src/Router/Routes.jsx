@@ -21,6 +21,7 @@ import AllUsers from "../pages/AdminDashBoard/AllUsers/AllUsers";
 import FinalPetDetails from "../pages/FInalPetDetails/FinalPetDetails";
 import BreedDetails from "../pages/BreedsDetails/BreedDetails";
 import CartPage from "../pages/CartPage/CartPage";
+import Payment from "../pages/CheckoutPage/PaymentPage/Payment";
 
 
 
@@ -77,6 +78,10 @@ export const router = createBrowserRouter([
         element:<PrivateRoute>
           <CartPage/>
         </PrivateRoute>
+      },
+      {
+        path:'paymenttest',
+        element:<Payment/>
       }
     ],
   },

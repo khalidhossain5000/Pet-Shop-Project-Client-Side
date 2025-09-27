@@ -1,6 +1,6 @@
 import React from "react";
 import { useCart } from "../../../Hooks/useCart";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaShoppingCart, FaPaw, FaHeart } from "react-icons/fa";
 
 const CartPage = () => {
   const { cartItems ,subTotalRounded,removeCart} = useCart();
