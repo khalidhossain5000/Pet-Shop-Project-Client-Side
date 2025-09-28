@@ -10,7 +10,7 @@ const HowItWorks = () => {
   ];
 
   return (
-    <section className="bg-white py-16">
+    <section className="bg-white py-12 lg:py-24">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl font-bold text-center text-[#111111] mb-12">
           How It Works

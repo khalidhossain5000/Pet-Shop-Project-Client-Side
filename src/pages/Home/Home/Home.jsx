@@ -5,6 +5,7 @@ import LowPriceOffer from '../lowPriceOffer/lowPriceOffer';
 import AllProducts from '../Products/AllProducts';
 import HowItWorks from '../HowItworks/HowItWorks';
 import Promo from '../PromoSection.jsx/Promo';
+import NewArrivalCarousel from '../NewArrivalCarousel/NewArrivalCarousel';
 
 
 const Home = () => {
@@ -16,6 +17,7 @@ const Home = () => {
             <LowPriceOffer/>
             <HowItWorks/>
             <Promo></Promo>
+            <NewArrivalCarousel/>
         </div>
     );
 };
