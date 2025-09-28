@@ -6,6 +6,7 @@ import AllProducts from '../Products/AllProducts';
 import HowItWorks from '../HowItworks/HowItWorks';
 import Promo from '../PromoSection.jsx/Promo';
 import NewArrivalCarousel from '../NewArrivalCarousel/NewArrivalCarousel';
+import CoverageMap from '../CoverageAreaMap/CoverageMap';
 
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
             <HowItWorks/>
             <Promo></Promo>
             <NewArrivalCarousel/>
+            <CoverageMap/>
         </div>
     );
 };

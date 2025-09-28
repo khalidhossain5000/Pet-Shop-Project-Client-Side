@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "name": "Dhaka",
+    "lat": 23.8103,
+    "lng": 90.4125,
+    "info": "Service Available"
+  },
+  {
+    "id": 2,
+    "name": "Chattogram",
+    "lat": 22.3569,
+    "lng": 91.7832,
+    "info": "Service Available"
+  },
+  {
+    "id": 3,
+    "name": "Khulna",
+    "lat": 22.8456,
+    "lng": 89.5403,
+    "info": "Service Available"
+  },
+  {
+    "id": 4,
+    "name": "Barishal",
+    "lat": 22.7010,
+    "lng": 90.3535,
+    "info": "Service Available"
+  },
+  {
+    "id": 5,
+    "name": "Sylhet",
+    "lat": 24.8949,
+    "lng": 91.8687,
+    "info": "Service Available"
+  },
+  {
+    "id": 6,
+    "name": "Mymensingh",
+    "lat": 24.7471,
+    "lng": 90.4203,
+    "info": "Service Available"
+  },
+  {
+    "id": 7,
+    "name": "Rajshahi",
+    "lat": 24.3745,
+    "lng": 88.6042,
+    "info": "Service Available"
+  },
+  {
+    "id": 8,
+    "name": "Rangpur",
+    "lat": 25.7463,
+    "lng": 89.2752,
+    "info": "Service Available"
+  }
+]
