@@ -6,6 +6,7 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import useAuth from "../../../../Hooks/useAuth";
 import Swal from "sweetalert2";
 
+
 const PaymentForm = () => {
   const [processing, setProcessing] = useState(false);
   const [error, setError] = useState("");
@@ -96,7 +97,12 @@ const PaymentForm = () => {
         setCartItems({
           userEmail: user?.email || "",
           cartItemInfo: [],
-        });
+        })
+        console.log(user?.email,'this is user email')
+        if(user?.email){
+           await axiosSecure.delete(`/api/cart/clear/${user?.email}`);
+          
+        }
       }
     }
   };
