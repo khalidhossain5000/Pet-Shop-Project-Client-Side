@@ -1,6 +1,7 @@
 import { useReactToPrint } from "react-to-print";
+import { RiDeleteBin2Fill } from "react-icons/ri";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
   Table,
@@ -30,7 +31,7 @@ import Invoice from "./Invoice.jsx";
 
 const Orders = () => {
   const axiosSecure = useAxiosSecure();
-  //   const queryClient = useQueryClient();
+  const queryClient = useQueryClient();
 
   const [openModal, setOpenModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
@@ -38,9 +39,9 @@ const Orders = () => {
 
   const handlePrint = useReactToPrint({
     contentRef: invoiceRef,
-    documentTitle: `Invoice-$1`, 
-  })
-console.log('selectedOrder',selectedOrder);
+    documentTitle: `Invoice-$1`,
+  });
+  console.log("selectedOrder", selectedOrder);
   const {
     data: orders = [],
     isLoading,
@@ -55,14 +56,15 @@ console.log('selectedOrder',selectedOrder);
   });
 
   //delete user starts
-  //   const { mutateAsync: deleteUserAsync, isPending: isDeleting } = useMutation({
-  //     mutationFn: async (userId) => {
-  //       await axiosSecure.delete(`/admin/users/${userId}`);
-  //     },
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries({ queryKey: ["admin-users"] });
-  //     },
-  //   });
+  const { mutateAsync: deleteOrder, isPending: isDeleting } = useMutation({
+    mutationFn: async (userId) => {
+      await axiosSecure.delete(`/orders/${userId}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["admin-orders"] });
+    },
+  });
+
   //delete user ends
 
   if (isLoading) return <Loading />;
@@ -154,12 +156,49 @@ console.log('selectedOrder',selectedOrder);
                   {/* Print Button */}
                   <button
                     onClick={() => {
-              setSelectedOrder(order._id); // নির্দিষ্ট অর্ডার সিলেক্ট করলাম
-              setTimeout(handlePrint, 100); // সামান্য delay দিয়ে print চালালাম
-            }}
+                      setSelectedOrder(order._id);
+                      setTimeout(handlePrint, 100);
+                    }}
                     className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer"
                   >
                     Print / Download Invoice
+                  </button>
+                  <button
+                     onClick={async () => {
+                      const id = order._id || order.id;
+                      if (!id) return;
+
+                      const result = await Swal.fire({
+                        title: "Are you sure?",
+                        text: "This will permanently delete the user.",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#d33",
+                        cancelButtonColor: "#3085d6",
+                        confirmButtonText: "Yes, delete",
+                      });
+                      if (result.isConfirmed) {
+                        try {
+                          await deleteOrder(id);
+                          Swal.fire(
+                            "Deleted!",
+                            "User has been deleted.",
+                            "success"
+                          );
+                        } catch (e) {
+                          Swal.fire(
+                            "Error",
+                            e?.message || "Failed to delete user.",
+                            "error"
+                          );
+                        }
+                      }
+                    }}
+                    className="block cursor-pointer"
+                  >
+                    <RiDeleteBin2Fill className="text-red-600 text-3xl" />
+                    {isDeleting ? "Deleting..." : ""}
+                   
                   </button>
                 </TableCell>
               </TableRow>

@@ -2,9 +2,9 @@ import React from "react";
 
 const Invoice = ({ order,selectedOrderId }) => {
   if (!order) return <p>No order found!</p>;
-  console.log("this is order in invoice", order);
+
   const printedItem=order.find((item)=>item._id===selectedOrderId)
-  console.log(printedItem,'this is printed ordre',selectedOrderId,'this islescted id')
+  
   return (
     <div className="hidden print:block">
    
