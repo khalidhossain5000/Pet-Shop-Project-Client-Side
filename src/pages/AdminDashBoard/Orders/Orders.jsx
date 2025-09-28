@@ -31,17 +31,16 @@ import Invoice from "./Invoice.jsx";
 const Orders = () => {
   const axiosSecure = useAxiosSecure();
   //   const queryClient = useQueryClient();
-  
+
   const [openModal, setOpenModal] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const invoiceRef = useRef();
 
-const invoiceRef = useRef();
-
-
-    const handlePrint = useReactToPrint({
+  const handlePrint = useReactToPrint({
     contentRef: invoiceRef,
-    documentTitle: `Invoice-$1`, // PDF এর নাম
-  });
-
+    documentTitle: `Invoice-$1`, 
+  })
+console.log('selectedOrder',selectedOrder);
   const {
     data: orders = [],
     isLoading,
@@ -153,13 +152,15 @@ const invoiceRef = useRef();
                   ></OrderStatus>
 
                   {/* Print Button */}
-      <button
-        onClick={handlePrint}
-        className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Print / Download Invoice
-      </button>
-                
+                  <button
+                    onClick={() => {
+              setSelectedOrder(order._id); // নির্দিষ্ট অর্ডার সিলেক্ট করলাম
+              setTimeout(handlePrint, 100); // সামান্য delay দিয়ে print চালালাম
+            }}
+                    className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer"
+                  >
+                    Print / Download Invoice
+                  </button>
                 </TableCell>
               </TableRow>
             ))}
@@ -168,7 +169,7 @@ const invoiceRef = useRef();
       </TableContainer>
       {/* Printable Area */}
       <div ref={invoiceRef}>
-        <Invoice order={orders} />
+        <Invoice order={orders} selectedOrderId={selectedOrder} />
       </div>
     </div>
   );
