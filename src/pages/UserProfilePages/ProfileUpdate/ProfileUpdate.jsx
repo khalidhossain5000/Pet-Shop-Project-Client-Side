@@ -46,7 +46,6 @@ const axiosInstance=useAxios()
   }
 };
 
-
 const handleImageUpload = async (e) => {
   const file = e.target.files[0];
   if (!file) return;
@@ -64,7 +63,7 @@ const handleImageUpload = async (e) => {
       formData
     );
 console.log(res,'this is updated url of pro pic')
-    setProfilePic(res.data.data.url); // final uploaded URL set 
+    setProfilePic(res.data.data.url); 
     toast.success("Image uploaded successfully!");
   } catch (err) {
     console.error(err);
