@@ -27,7 +27,7 @@ const ProfileSidebar = ({ onClose }) => {
     {
       text: "My Orders",
       icon: <FiUsers className="w-5 h-5" />,
-      path: "/dashboard/my-orders",
+      path: "/profile/my-orders",
     },
     {
       text: "Payment History",
