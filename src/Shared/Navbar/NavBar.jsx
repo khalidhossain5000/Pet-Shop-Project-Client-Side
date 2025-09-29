@@ -93,11 +93,13 @@ const NavBar = () => {
         <div className="">
           {user ? (
             <div className="space-x-4 hidden lg:flex  items-center">
+              <Link to='/profile'>
               <img
                 src={user?.photoURL}
                 alt="sdgdsg"
                 className="w-10 lg:w-14 lg:h-14 h-10 rounded-full"
               />
+              </Link>
               <button
                 onClick={handleLogout}
                 className="border-none bg-light-accent xl:py-[10px] xl:px-[30px] rounded-lg text-light-text font-secondary xl:text-xl py-1 px-3 ml-3 cursor-pointer"
