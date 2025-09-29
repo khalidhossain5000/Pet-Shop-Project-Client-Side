@@ -30,8 +30,7 @@ const ProfileDashboard = () => {
         ${mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
       `}
       >
-        
-        <ProfileSidebar onClose={handleDrawerToggle}/>
+        <ProfileSidebar onClose={handleDrawerToggle} />
       </div>
 
       {/* Main Content */}
