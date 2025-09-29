@@ -20,40 +20,23 @@ const ProfileSidebar = ({ onClose }) => {
 
   const menuItems = [
     {
-      text: "Dashboard",
+      text: "My Profile",
       icon: <FiHome className="w-5 h-5" />,
-      path: "/dashboard",
+      path: "/profile",
     },
     {
-      text: "All Users",
+      text: "My Orders",
       icon: <FiUsers className="w-5 h-5" />,
-      path: "/dashboard/all-users",
+      path: "/dashboard/my-orders",
     },
     {
-      text: "Add Products",
+      text: "Payment History",
       icon: <IoMdAddCircleOutline className="w-5 h-5" />,
       path: "/dashboard/add-products",
     },
-    {
-      text: "Add Breeds",
-      icon: <IoAddOutline className="w-5 h-5" />,
-      path: "/dashboard/add-breeds",
-    },
-    {
-      text: "All Products",
-      icon: <FiPackage className="w-5 h-5" />,
-      path: "/dashboard/admin-all-products",
-    },
-    {
-      text: "All Pets",
-      icon: <FiSettings className="w-5 h-5" />,
-      path: "/dashboard/admin-all-pet",
-    },
-    {
-      text: "All Orders",
-      icon: <FiShoppingCart className="w-5 h-5" />,
-      path: "/dashboard/orders",
-    },
+    
+    
+    
     
   ];
 

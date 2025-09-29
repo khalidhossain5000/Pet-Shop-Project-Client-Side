@@ -18,7 +18,7 @@ const ProfileDashboard = () => {
       {/* Mobile Overlay */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/30 z-40 lg:hidden"
           onClick={handleDrawerToggle}
         />
       )}
@@ -69,7 +69,7 @@ const ProfileDashboard = () => {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-auto p-6">
+        <main className="flex-1 overflow-auto">
           <Outlet />
         </main>
       </div>

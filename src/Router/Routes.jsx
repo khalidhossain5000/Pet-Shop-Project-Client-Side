@@ -25,6 +25,7 @@ import Payment from "../pages/CheckoutPage/PaymentPage/Payment";
 import Orders from "../pages/AdminDashBoard/Orders/Orders";
 import ProfileDashboard from "../layouts/UserProfileDashboard/ProfileDashboard";
 import ProfileHome from "../pages/UserProfilePages/ProfileHome/ProfileHome";
+import MyOrders from "../pages/UserProfilePages/MyOrders/MyOrders";
 
 
 
@@ -151,6 +152,10 @@ export const router = createBrowserRouter([
       {
         index:true,
         Component:ProfileHome
+      },
+      {
+        path:'my-orders',
+        Component:MyOrders
       }
     ]
   }
