@@ -6,70 +6,71 @@ import useAxios from "../../../../Hooks/useAxios";
 
 const ProfileUpdate = () => {
   const { user, setUser, updateUserProfile } = useAuth();
-const axiosInstance=useAxios()
+  const axiosInstance = useAxios();
   // State for input values
   const [name, setName] = useState(user?.displayName || "");
   const [profilePic, setProfilePic] = useState(user?.photoURL || "");
   const [previewUrl, setPreviewUrl] = useState(user?.photoURL || null);
 
   const handleFormSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!profilePic) {
-    return toast.loading("Please wait, image uploading...");
-  }
+    if (!profilePic) {
+      return toast.loading("Please wait, image uploading...");
+    }
 
-  const updatedProfile = {
-    displayName: name,
-    photoURL: profilePic,
+    const updatedProfile = {
+      displayName: name,
+      photoURL: profilePic,
+    };
+
+    try {
+      // 1 Firebase update
+      await updateUserProfile(updatedProfile);
+
+      // 2 Local state update
+      setUser({ ...user, displayName: name, photoURL: profilePic });
+
+      // 3 DB update
+      await axiosInstance.patch(`/users/${user?.email}`, {
+        name,
+        profilePic,
+      });
+
+      toast.success("Profile updated successfully!", {
+        className: "w-[300px] h-[100px] text-xl font-bold",
+      });
+    } catch (err) {
+      console.error(err);
+      toast.error("Profile update failed!");
+    }
   };
 
-  try {
-    // 1 Firebase update
-    await updateUserProfile(updatedProfile);
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-    // 2 Local state update
-    setUser({ ...user, displayName: name, photoURL: profilePic });
+    // preview update
+    setPreviewUrl(URL.createObjectURL(file));
 
-    // 3 DB update
-    await axiosInstance.patch(`/users/${user?.email}`, {
-      name,
-      profilePic,
-    });
+    // formdata prepare
+    const formData = new FormData();
+    formData.append("image", file);
 
-    toast.success("Profile updated successfully!", {
-      className: "w-[300px] h-[100px] text-xl font-bold",
-    });
-  } catch (err) {
-    console.error(err);
-    toast.error("Profile update failed!");
-  }
-};
-
-const handleImageUpload = async (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  // preview update
-  setPreviewUrl(URL.createObjectURL(file));
-
-  // formdata prepare
-  const formData = new FormData();
-  formData.append("image", file);
-
-  try {
-    const res = await axios.post(
-      `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_Imgbb_Key}`,
-      formData
-    );
-console.log(res,'this is updated url of pro pic')
-    setProfilePic(res.data.data.url); 
-    toast.success("Image uploaded successfully!");
-  } catch (err) {
-    console.error(err);
-    toast.error("Image upload failed!");
-  }
-};
+    try {
+      const res = await axios.post(
+        `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_Imgbb_Key}`,
+        formData
+      );
+      
+      
+      setProfilePic(res.data.data.url);
+      toast.success("Image uploaded successfully!");
+    } catch (err) {
+      console.error(err);
+      toast.error("Image upload failed!");
+    }
+  };
 
   return (
     <div className="flex justify-center px-4 py-10">
