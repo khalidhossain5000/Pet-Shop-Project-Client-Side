@@ -26,6 +26,7 @@ import Orders from "../pages/AdminDashBoard/Orders/Orders";
 import ProfileDashboard from "../layouts/UserProfileDashboard/ProfileDashboard";
 import ProfileHome from "../pages/UserProfilePages/ProfileHome/ProfileHome";
 import MyOrders from "../pages/UserProfilePages/MyOrders/MyOrders";
+import ProfileUpdate from "../pages/UserProfilePages/ProfileUpdate/ProfileUpdate";
 
 
 
@@ -156,6 +157,10 @@ export const router = createBrowserRouter([
       {
         path:'my-orders',
         Component:MyOrders
+      },
+      {
+        path:'update',
+        Component:ProfileUpdate
       }
     ]
   }
