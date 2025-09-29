@@ -25,11 +25,11 @@ const AllProducts = () => {
 
         {/* card-1 and card-2 main container  */}
         <div
-          className="pt-6 md:flex md:gap-6
+          className="pt-6 xl:flex md:gap-6
           "
         >
           {/* card-1 section container  */}
-          <div className="mb-6 md:mb-0 md:w-1/3">
+          <div className="mb-6 md:mb-0 xl:w-1/3 md:px-6">
             {/* t-shirt for dog container  */}
             <div className="bg-[#F9DF8A] rounded-xl px-4 md:px-9 h-full">
               {/* dog shirt content  */}
@@ -53,8 +53,9 @@ const AllProducts = () => {
             </div>
           </div>
 
+
           {/* card-2-big container section  */}
-          <div className="md:w-2/3 grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+          <div className="md:pt-6 xl:w-2/3 grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 xl:grid-cols-3 gap-3 md:gap-4 px-3 lg:px-6 xl:px-0">
             {/* child-card-1  */}
 
             {products?.map((product) => (

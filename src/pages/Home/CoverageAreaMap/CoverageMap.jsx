@@ -16,7 +16,7 @@ const CoverageMap = () => {
   const bangladeshCenter = [23.685, 90.3563]; // Lat, Lng
 
   return (
-    <div className="w-full h-[600px] lg:h-[900px] overflow-hidden py-12 lg:pt-24 container mx-auto">
+    <div className="w-full h-[600px] lg:h-[900px] overflow-hidden py-12 lg:pt-24 container mx-auto px-6 xl:px-0">
       <h1 className="text-2xl lg:text-4xl font-primary font-bold text-light-text text-center mb-12">
         Our Coverage Area
       </h1>
