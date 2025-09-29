@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 
 import SocialLogin from "../SocialLogin/SocialLogin";
 import useAxios from "../../../../Hooks/useAxios";
+import { useNavigate } from "react-router";
 const Register = () => {
   const [profilePic, setProfilePic] = useState("");
   //   const [passwordError, setPasswordError] = useState("");
