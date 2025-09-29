@@ -62,8 +62,7 @@ const ProfileUpdate = () => {
         `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_Imgbb_Key}`,
         formData
       );
-      
-      
+
       setProfilePic(res.data.data.url);
       toast.success("Image uploaded successfully!");
     } catch (err) {

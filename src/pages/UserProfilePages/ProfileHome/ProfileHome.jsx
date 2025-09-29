@@ -59,7 +59,7 @@ const ProfileHome = () => {
       </div>
 
       {/* profle more details will be add later */}
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6 items-stretch ">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6 items-stretch px-3 xl:px-0">
         {/* TOTAL ORDERS CARD*/}
         <div className="relative w-full max-w-xs sm:max-w-lg  rounded-xl p-5 lg:p-9 overflow-hidden bg-gradient-to-r from-green-600 to-emerald-500 text-white shadow-2xl h-full">
           {/* --- Background Trend Graphic --- */}
