@@ -23,6 +23,8 @@ import BreedDetails from "../pages/BreedsDetails/BreedDetails";
 import CartPage from "../pages/CartPage/CartPage";
 import Payment from "../pages/CheckoutPage/PaymentPage/Payment";
 import Orders from "../pages/AdminDashBoard/Orders/Orders";
+import ProfileDashboard from "../layouts/UserProfileDashboard/ProfileDashboard";
+import ProfileHome from "../pages/UserProfilePages/ProfileHome/ProfileHome";
 
 
 
@@ -139,6 +141,18 @@ export const router = createBrowserRouter([
       }
     ]
     
+  },
+  {
+    path:'profile',
+    element:<PrivateRoute>
+      <ProfileDashboard/>
+    </PrivateRoute>,
+    children:[
+      {
+        index:true,
+        Component:ProfileHome
+      }
+    ]
   }
 ])
 
