@@ -1,6 +1,7 @@
 import React from "react";
 import PieChart from "./AdminChart/WeekOrdersChart/PieChart";
 import BarChart from "./AdminChart/CategoryCountChart/BarChart";
+import LineChart from "./AdminChart/StatusChart/LineChart";
 
 
 const DashBoard = () => {
@@ -16,7 +17,9 @@ const DashBoard = () => {
      <div>
       <BarChart/>
      </div>
-    
+    <div>
+      <LineChart/>
+    </div>
     </div>
   );
 };
