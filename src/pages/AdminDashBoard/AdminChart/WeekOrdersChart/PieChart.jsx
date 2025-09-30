@@ -38,7 +38,7 @@ const PieChart = () => {
 
   if (isLoading) return <p>Loading...</p>;
   const options = {
-    title: "My Daily Activities",
+    title:`Per Day Order Count (Total: ${totalOrders})`,
   };
   return (
     <div>
@@ -50,11 +50,7 @@ const PieChart = () => {
         height={"300px"}
       />
 
-      {/* Center label for total orders */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-[140px] -translate-y-[20px] text-center">
-        <p className="text-lg font-semibold text-gray-700">Total Orders</p>
-        <p className="text-2xl font-bold text-indigo-600">{totalOrders}</p>
-      </div>
+     
     </div>
   );
 };
