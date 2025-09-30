@@ -32,7 +32,7 @@ const PieChart = () => {
     ...data.map((item) => [dayMap[item._id] || "Unknown", item.totalOrders]),
   ];
 
-  console.log(chartData);
+
 
   const totalOrders = chartData.slice(1).reduce((sum, d) => sum + d[1], 0); // d[1] = orders
 
