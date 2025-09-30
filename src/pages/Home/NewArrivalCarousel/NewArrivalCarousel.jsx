@@ -14,7 +14,7 @@ import "swiper/css/navigation";
 
 // import modules navigation/pagination
 // Import modules correctly
-import { Navigation } from "swiper/modules";
+import { Navigation ,Autoplay} from "swiper/modules";
 
 const NewArrivalCarousel = () => {
   const axiosSecure = useAxiosSecure();
@@ -35,7 +35,7 @@ const NewArrivalCarousel = () => {
         </h1>
         {/* carousel start */}
         <Swiper
-          modules={[Navigation]}
+          modules={[Navigation,Autoplay]}
           autoplay={{
             delay: 3000, // seconds per slide
             disableOnInteraction: true,
