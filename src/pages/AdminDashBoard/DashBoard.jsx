@@ -3,6 +3,7 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import useAuth from "../../../Hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import { PieChart } from "@mui/x-charts/PieChart";
+import BarChart from "./AdminChart/BarChart";
 
 const DashBoard = () => {
   const axiosSecure = useAxiosSecure();
@@ -76,6 +77,10 @@ const DashBoard = () => {
         </div>
       </div>
       {/* order week pie chart ends here */}
+      {/* BAR CHART */}
+      <div>
+        <BarChart />
+      </div>
     </div>
   );
 };
