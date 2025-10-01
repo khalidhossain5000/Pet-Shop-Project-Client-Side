@@ -32,13 +32,11 @@ const PieChart = () => {
     ...data.map((item) => [dayMap[item._id] || "Unknown", item.totalOrders]),
   ];
 
-
-
   const totalOrders = chartData.slice(1).reduce((sum, d) => sum + d[1], 0); // d[1] = orders
 
   if (isLoading) return <p>Loading...</p>;
   const options = {
-    title:`Per Day Order Count (Total: ${totalOrders})`,
+    title: `Per Day Order Count (Total: ${totalOrders})`,
   };
   return (
     <div>
@@ -49,8 +47,6 @@ const PieChart = () => {
         width={"100%"}
         height={"300px"}
       />
-
-     
     </div>
   );
 };
