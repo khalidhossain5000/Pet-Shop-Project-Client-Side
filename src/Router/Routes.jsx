@@ -29,6 +29,7 @@ import MyOrders from "../pages/UserProfilePages/MyOrders/MyOrders";
 import ProfileUpdate from "../pages/UserProfilePages/ProfileUpdate/ProfileUpdate";
 import AdminRoute from "./AdminRoute";
 import Forbidden from "../pages/ForbiddenPage/Forbidden";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 
 
@@ -171,6 +172,10 @@ export const router = createBrowserRouter([
     {
     path:'forbidden',
     Component:Forbidden
+  },
+  {
+    path:'*',
+    Component:ErrorPage
   }
 ])
 
