@@ -7,7 +7,7 @@ import Loading from "../Shared/Loading/Loading";
 
 const AdminRoute = ({ children }) => {
   const { user, loading } = useAuth();
-  const { role, roleLoading } = useRole();
+  const { role, roleLoading } = useRole(); 
   const location = useLocation();
   if (loading || roleLoading) return <Loading />;
   if (!user || role !== "admin") {
