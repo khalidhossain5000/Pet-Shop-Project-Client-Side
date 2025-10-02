@@ -1,5 +1,5 @@
 import React from "react";
-import imgi from "../../assets/errorImgae/erorrrr-fnal.jpg";
+import imgi from "../../assets/forbiddenImg/erorrrr-fnal.jpg";
 import { Link } from "react-router";
 
 const ErrorPage = () => {
