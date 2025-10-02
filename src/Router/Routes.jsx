@@ -27,6 +27,8 @@ import ProfileDashboard from "../layouts/UserProfileDashboard/ProfileDashboard";
 import ProfileHome from "../pages/UserProfilePages/ProfileHome/ProfileHome";
 import MyOrders from "../pages/UserProfilePages/MyOrders/MyOrders";
 import ProfileUpdate from "../pages/UserProfilePages/ProfileUpdate/ProfileUpdate";
+import AdminRoute from "./AdminRoute";
+import Forbidden from "../pages/ForbiddenPage/Forbidden";
 
 
 
@@ -110,7 +112,9 @@ export const router = createBrowserRouter([
   {
     path:'dashboard',
     element:<PrivateRoute>
+      <AdminRoute>
       <AdminDashboard/>
+      </AdminRoute>
     </PrivateRoute>,
     children:[
       {
@@ -163,6 +167,10 @@ export const router = createBrowserRouter([
         Component:ProfileUpdate
       }
     ]
+  },
+    {
+    path:'forbidden',
+    Component:Forbidden
   }
 ])
 
