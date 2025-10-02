@@ -47,7 +47,7 @@ const AdminAllProducts = () => {
       return response.data || [];
     },
   });
-
+console.log(error,'from admin all products')
   const { mutateAsync: deleteProductAsync, isPending: isDeleting } =
     useMutation({
       mutationFn: async (productId) => {
