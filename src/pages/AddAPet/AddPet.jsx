@@ -26,6 +26,7 @@ const AddPet = () => {
 
     const petData = {
       ...formDataObject,
+      quantity:1,
       petPic,
       status: "pending",
     };

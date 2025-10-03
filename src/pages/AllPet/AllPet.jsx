@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import Select from "react-select";
 import useAxios from "../../../Hooks/useAxios";
 import { Link } from "react-router";
+import Loading from "../../Shared/Loading/Loading";
 
 const AllPet = () => {
   const axiosInstance = useAxios();
@@ -25,6 +26,18 @@ const AllPet = () => {
       return response.data;
     },
   });
+
+  //fetch ordered pet data
+  const { data: orderedPet = [], isLoading: orderLoading } = useQuery({
+    queryKey: ["admin-orders"],
+    queryFn: async () => {
+      const res = await axiosInstance.get("/payments/orders");
+      return res.data || [];
+    },
+  });
+console.log(orderedPet)
+  // Step 1: Extract all ordered pet IDs
+ 
 
   // Filter options
   const categoryOptions = [
@@ -188,12 +201,12 @@ const AllPet = () => {
           {/* Right Side - Pet Cards */}
           <div className="lg:w-3/4">
             {/* Loading State */}
-            {isLoading && (
-              <div className="text-center py-12">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-light-accent mx-auto"></div>
-                <p className="text-light-text mt-4 text-lg">Loading pets...</p>
-              </div>
-            )}
+            {isLoading ||
+              (orderLoading && (
+                <div className="text-center py-12">
+                  <Loading />
+                </div>
+              ))}
 
             {/* Error State */}
             {error && (

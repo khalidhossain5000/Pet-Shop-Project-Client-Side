@@ -5,10 +5,10 @@ import { Link } from "react-router";
 const ErrorPage = () => {
   return (
     <div className="container lg:max-w-full lg:px-12 mx-auto min-h-screen shadow-2xl ">
-      <h1 className="text-3xl lg:text-7xl text-center text-[#4a3993] font-bold rancho py-6 lg:py-9">
+      <h1 className="text-3xl lg:text-7xl text-center text-[#4a3993] font-bold rancho py-6 lg:py-9 font-secondary">
         hey
       </h1>
-      <h1 className="text-5xl py-3 lg:py-0 lg:text-9xl font-bold text-center">
+      <h1 className="text-5xl py-3 lg:py-0 lg:text-9xl font-bold text-center font-primary">
         {" "}
         You Took a Wrong Turn
       </h1>

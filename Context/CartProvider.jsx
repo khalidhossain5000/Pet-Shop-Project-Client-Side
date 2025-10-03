@@ -4,12 +4,12 @@ import { CartContext } from "./CartContext";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useAuth from "../Hooks/useAuth";
-import useAxiosSecure from "../Hooks/useAxiosSecure";
 import CartSidebar from "../src/Shared/CartSidebar/CartSidebar";
 import Loading from "../src/Shared/Loading/Loading";
 import toast from "react-hot-toast";
+import useAxios from "../Hooks/useAxios";
 const CartProvider = ({ children }) => {
-  const axiosSecure = useAxiosSecure();
+  const axiosInstance = useAxios();
   const { user } = useAuth();
   const [open, setOpen] = useState(false);
   // Initialize cart with proper structure
@@ -27,7 +27,7 @@ const CartProvider = ({ children }) => {
   const { data, isLoading } = useQuery({
     queryKey: ["cart", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/carts?email=${user?.email}`);
+      const res = await axiosInstance.get(`/carts?email=${user?.email}`);
       return res.data;
     },
     enabled: !!user?.email, // fetch only if user exists
@@ -84,7 +84,7 @@ const CartProvider = ({ children }) => {
     };
     // State update
     setCartItems(updatedCart);
-    axiosSecure.post("/carts", updatedCart).then((res) => {
+    axiosInstance.post("/carts", updatedCart).then((res) => {
       // Show success message
       Swal.fire({
         icon: "success",
@@ -102,7 +102,7 @@ const CartProvider = ({ children }) => {
   //remove cart item from state and db function start here
   const removeCart = async (petId) => {
     try {
-      const res = await axiosSecure.delete(`/carts/${user?.email}/${petId}`);
+      const res = await axiosInstance.delete(`/carts/${user?.email}/${petId}`);
       if (res.data.modifiedCount > 0) {
         // remove from ui state in the sidebar
         setCartItems((prev) => ({

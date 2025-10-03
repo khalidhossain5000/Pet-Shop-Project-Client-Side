@@ -103,6 +103,8 @@ const PaymentForm = () => {
            await axiosSecure.delete(`/api/cart/clear/${user?.email}`);
           
         }
+        
+        //update pet quantity
       }
     }
   };
