@@ -1,3 +1,3 @@
 ## Pet4Browse ------- Pet Shop Project
 
-### React full stack project with awesome backend
+### Mern stack project this is full 
