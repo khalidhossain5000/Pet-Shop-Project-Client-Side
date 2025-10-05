@@ -45,7 +45,7 @@ const CartProvider = ({ children }) => {
 
   if (isLoading) return <Loading />;
 
-  //sub total calculation
+  //sub total  calculatuions done here 
   const subTotal = cartItems?.cartItemInfo
     ?.reduce((total, item) => total + parseFloat(item.price), 0)
     .toFixed(2);
