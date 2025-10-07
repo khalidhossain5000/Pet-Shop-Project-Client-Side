@@ -9,12 +9,11 @@ const Invoice = ({ order, selectedOrderId }) => {
     <div className="hidden print:block relative">
       <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-xl p-6 border border-gray-200 relative overflow-hidden">
         {/* Paid Stamp */}
-        {/* Paid Stamp */}
+        
         {printedItem?.paymentStatus === "Paid" && (
           <div
-            className="absolute bottom-6 right-6 transform -rotate-12 border-4 border-green-600 text-green-600 px-6 py-3 font-extrabold text-3xl tracking-widest opacity-70 text-center shadow-lg"
+            className="absolute bottom-6 right-6 transform -rotate-12 border-4 border-green-600 text-green-600 px-6 py-3 font-extrabold text-3xl tracking-widest opacity-90 text-center shadow-lg"
             style={{
-              fontFamily: "Impact, sans-serif",
               textShadow:
                 "2px 2px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff",
               letterSpacing: "0.15em",
