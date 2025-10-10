@@ -55,7 +55,7 @@ const productSubTotal = cartItems?.cartItemInfo
     const productTotalRounded=parseFloat(productSubTotal)
   const subTotalRounded = parseFloat(subTotal);
   //AMOUNT IN CENTES FOR STRIPE PAYMENT
-  const amountInCents = subTotalRounded * 100;
+  const amountInCents = subTotalRounded || productTotalRounded * 100;
   const addToCart = (itemDetails) => {
     const { _id, petName, petCategory, breed, size, price,petPic,productName,productImage,productPrice ,productCategory} = itemDetails;
 

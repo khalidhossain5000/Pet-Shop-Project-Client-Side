@@ -12,7 +12,7 @@ const PaymentForm = () => {
   const [error, setError] = useState("");
   const stripe = useStripe();
   const elements = useElements();
-  const { amountInCents, subTotalRounded, cartItems, setCartItems } = useCart();
+  const { amountInCents, subTotalRounded, cartItems, setCartItems ,productTotalRounded} = useCart();
   const axiosSecure = useAxiosSecure();
   const {user} = useAuth();
 
@@ -57,7 +57,7 @@ const PaymentForm = () => {
       // step-4 mark parcel paid also create payment history
       const paymentData = {
         email: user?.email || "N/A",
-        amount: subTotalRounded,
+        amount: subTotalRounded || productTotalRounded,
         transactionId: transactionId,
         paymentMethod: paymentIntent.payment_method_types,
         paymentItem: cartItems.cartItemInfo,
@@ -141,7 +141,7 @@ const PaymentForm = () => {
               : "bg-[#FFDC26] hover:bg-[#e6c920] text-[#111111]"
           }`}
       >
-        {processing ? "Processing..." : `Pay Now $${subTotalRounded}`}
+        {processing ? "Processing..." : `Pay Now $${subTotalRounded || productTotalRounded}`}
       </button>
       {error && (
         <p className="text-center text-sm text-red-600 font-medium">{error}</p>
