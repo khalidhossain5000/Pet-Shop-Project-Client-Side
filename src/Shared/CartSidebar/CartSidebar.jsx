@@ -13,7 +13,7 @@ import { ImCross } from "react-icons/im";
 
 
 const CartSidebar = ({ open, onClose, cartItems, subTotal, removeCart,navigate }) => {
-
+console.log(cartItems,'in cartsidebar here');
   return (
     <Drawer anchor="right" open={open} onClose={onClose}>
       <Box
@@ -46,11 +46,11 @@ const CartSidebar = ({ open, onClose, cartItems, subTotal, removeCart,navigate }
                 </button>
               </div>
               <ListItemText
-                primary={item.petName}
-                secondary={`Category: ${item.petCategory} | Breed: ${item.breed} | Size: ${item.size}`}
+                primary={item.petName || item.productName}
+                secondary={`Category: ${item.petCategory || item.productCategory} | Breed: ${item.breed} | Size: ${item.size}`}
               />
               <Typography variant="subtitle1" sx={{ mt: 0.5 }}>
-                ${item.price}
+                ${item.price || item.productPrice} 
               </Typography>
               <Divider sx={{ width: "100%", mt: 1, mb: 1 }} />
             </ListItem>

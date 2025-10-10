@@ -11,10 +11,10 @@ import { useCart } from "../../../Hooks/useCart";
 
 const NavBar = () => {
   const { user, logoutUser } = useAuth();
-  const { role, isLoading } = useRole();
+  const { role } = useRole();
   const { cartItems } = useCart();
   const cartCount=cartItems?.cartItemInfo?.length || 0
-  if (isLoading) return <Loading />;
+
 
   const handleLogout = () => {
     logoutUser()

@@ -1,7 +1,6 @@
 import axios from "axios";
 import React from "react";
 import useAuth from "./useAuth";
-import Loading from "../src/Shared/Loading/Loading";
 import { useNavigate } from "react-router";
 
 const axiosSecure = axios.create({
@@ -11,7 +10,7 @@ const axiosSecure = axios.create({
 const useAxiosSecure = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
-  if (loading) return <Loading />;
+  if (loading) return
   axiosSecure.interceptors.request.use((config) => {
     if (user?.accessToken) {
       config.headers.Authorization = `Bearer ${user.accessToken}`;
@@ -39,3 +38,26 @@ const useAxiosSecure = () => {
 };
 
 export default useAxiosSecure;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

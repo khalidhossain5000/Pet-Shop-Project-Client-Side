@@ -1,13 +1,17 @@
 import React from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import useAxios from "../../../Hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../../Shared/Loading/Loading";
+import { useCart } from "../../../Hooks/useCart";
+import CartSidebar from "../../Shared/CartSidebar/CartSidebar";
 
 const PetDetails = () => {
   const { id } = useParams();
   const axiosInstance = useAxios();
-
+    const { addToCart, open, setOpen, cartItems, productTotalRounded, removeCart } =
+      useCart();
+       const navigate = useNavigate();
   const {
     data: allProducts = [],
     isLoading,
@@ -107,10 +111,11 @@ const PetDetails = () => {
 
               {/* Actions */}
               <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <button className="w-full sm:w-auto bg-light-accent hover:bg-light-accent/90 text-light-text font-secondary font-medium text-sm py-3 px-5 rounded-md transition-colors">
-                  Ask about this pet
-                </button>
+               
                 <button
+                onClick={() => {
+                    addToCart(product);
+                  }}
                   disabled={(product?.productStock ?? 0) <= 0}
                   className="w-full sm:w-auto bg-light-text text-white hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed font-secondary font-medium text-sm py-3 px-5 rounded-md transition-opacity"
                 >
@@ -123,6 +128,16 @@ const PetDetails = () => {
           </div>
         </div>
       </div>
+       {open && (
+        <CartSidebar
+          open={open}
+          onClose={() => setOpen(false)}
+          cartItems={cartItems}
+          subTotal={productTotalRounded}
+          removeCart={removeCart}
+          navigate={navigate}
+        />
+      )}
     </div>
   );
 };

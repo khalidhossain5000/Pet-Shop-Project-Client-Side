@@ -3,10 +3,17 @@ import { Outlet } from "react-router";
 import { FiMenu, FiX } from "react-icons/fi";
 import SideBar from "../../pages/AdminDashBoard/SideBar/SideBar";
 import useAuth from "../../../Hooks/useAuth";
+import Loading from "../../Shared/Loading/Loading";
 
 const AdminDashboard = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user } = useAuth();
+
+  const accessTokens=user?.accessToken
+  console.log(accessTokens);
+
+if(!accessTokens) return <Loading/>
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
