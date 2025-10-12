@@ -17,7 +17,7 @@ https://browse-for-pets.netlify.app
 1.Clone the repository
 
 ```bash
-git clone https://github.com/khalidhossain5000/next-js-task-simple-web-app.git
+git clone https://github.com/khalidhossain5000
 cd next-js-task-simple-web-app
 
 ```
