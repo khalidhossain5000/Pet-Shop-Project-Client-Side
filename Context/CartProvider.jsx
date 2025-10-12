@@ -45,26 +45,37 @@ const CartProvider = ({ children }) => {
 
   if (isLoading) return <Loading />;
 
-  //sub total  calculatuions done here 
+  //sub total  calculatuions done here
   const subTotal = cartItems?.cartItemInfo
     ?.reduce((total, item) => total + parseFloat(item.price), 0)
     .toFixed(2);
-const productSubTotal = cartItems?.cartItemInfo
+  const productSubTotal = cartItems?.cartItemInfo
     ?.reduce((total, item) => total + parseFloat(item.productPrice), 0)
     .toFixed(2);
-    const productTotalRounded=parseFloat(productSubTotal)
+  const productTotalRounded = parseFloat(productSubTotal);
   const subTotalRounded = parseFloat(subTotal);
   //AMOUNT IN CENTES FOR STRIPE PAYMENT
   const amountInCents = subTotalRounded || productTotalRounded * 100;
   const addToCart = (itemDetails) => {
-    const { _id, petName, petCategory, breed, size, price,petPic,productName,productImage,productPrice ,productCategory} = itemDetails;
-
+    const {
+      _id,
+      petName,
+      petCategory,
+      breed,
+      size,
+      price,
+      petPic,
+      productName,
+      productImage,
+      productPrice,
+      productCategory,
+    } = itemDetails;
 
     // Check if item already exists in the cart
     const alreadyExists = cartItems?.cartItemInfo?.some(
       (item) => item.petId === _id
     );
-console.log(alreadyExists,itemDetails,'this is cartitmes',cartItems)
+    console.log(alreadyExists, itemDetails, "this is cartitmes", cartItems);
     if (alreadyExists) {
       // Show warning if item already exists
       return Swal.fire({
@@ -78,7 +89,19 @@ console.log(alreadyExists,itemDetails,'this is cartitmes',cartItems)
     }
 
     // If item doesn't exist, add it to cart
-    const newItem = { petId: _id, petName, petCategory, breed, size, price ,petPic,productImage,productName,productPrice,productCategory};
+    const newItem = {
+      petId: _id,
+      petName,
+      petCategory,
+      breed,
+      size,
+      price,
+      petPic,
+      productImage,
+      productName,
+      productPrice,
+      productCategory,
+    };
 
     // Update cart state while preserving existing items
     const updatedCart = {
@@ -134,14 +157,12 @@ console.log(alreadyExists,itemDetails,'this is cartitmes',cartItems)
     amountInCents,
     open,
     setOpen,
-    productTotalRounded
+    productTotalRounded,
   };
-console.log('this is product cart itesm',cartItems);
+  console.log("this is product cart itesm", cartItems);
   return (
     <>
       <CartContext.Provider value={cartInfo}>{children}</CartContext.Provider>
-
-     
     </>
   );
 };
