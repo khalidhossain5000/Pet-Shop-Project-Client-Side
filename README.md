@@ -18,7 +18,7 @@ https://browse-for-pets.netlify.app
 
 ```bash
 git clone https://github.com/khalidhossain5000
-cd next-js-task-simple-web-app
+cd browse-for-petshopdgh-sgdsg-sg
 
 ```
 
@@ -36,6 +36,7 @@ NEXTAUTH_URL=http://localhost:3000
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
 MONGODB_URI=your_mongodb_connection_string
+stripe_Secret=your_stripe_secret_will_be_here
 
 ```
 
