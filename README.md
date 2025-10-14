@@ -9,7 +9,7 @@ This project aims to make pet discovery simple, engaging, and visually appealing
 
 ## 🚀 Live Site
 
-https://browse-for-pets.netlify.app
+Live Url: https://browse-for-pets.netlify.app
 
 
 ## Setup & installation instructions
