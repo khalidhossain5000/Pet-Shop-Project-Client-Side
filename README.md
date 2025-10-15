@@ -19,7 +19,7 @@ Live Url: https://browse-for-pets.netlify.app
 
 ```bash
 git clone https://github.com/khalidhossain5000
-cd browse-for-petshopdgh-sgdsg-sg
+cd folder-name-of-the-project-to-enter-the-folder
 
 ```
 
