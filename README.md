@@ -15,7 +15,7 @@ Live Url: https://browse-for-pets.netlify.app
 ## Setup & installation instructions
 
 
-1.Clone the repository
+1.Clone the repository or Download the repository as Zip and after that follow this: 
 
 ```bash
 git clone https://github.com/khalidhossain5000
